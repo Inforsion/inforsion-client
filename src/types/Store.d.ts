@@ -1,4 +1,6 @@
 export interface Store {
-
-    storeId: number;
+  id: number;
+  ownerId: number;
+  storeTitle: string;
+  thumbnailURL?: string;
 }
