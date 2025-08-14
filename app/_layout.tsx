@@ -19,7 +19,7 @@ export default function RootLayout() {
   const segments = useSegments();
 
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    Pretendard: require("../assets/fonts/PretendardVariable.ttf"),
   });
   const [selectedStore, setSelectedStore] = useState<string | null>(null);
   const [isStoreLoading, setIsStoreLoading] = useState(true);
