@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3653A4",
     justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: "auto"
   },
   logo: {
     position: "absolute",
@@ -110,7 +111,6 @@ const styles = StyleSheet.create({
     bottom: 20,
   },
   storeList: {
-    width: "100%",
     height: "100%",
     display: "flex",
     flexDirection: "row",
