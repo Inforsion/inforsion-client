@@ -20,7 +20,7 @@ const storeStyles = (SCREEN_WIDTH: number) =>
     },
     scrollContent: {
       alignItems: "center",
-      paddingHorizontal: (SCREEN_WIDTH - ITEM_WIDTH) / 2, // 첫 번째와 마지막 아이템이 중앙에 오도록
+      paddingHorizontal: (SCREEN_WIDTH - ITEM_WIDTH) / 2,
       paddingVertical: 30,
     },
     storeWrapper: {
@@ -31,7 +31,6 @@ const storeStyles = (SCREEN_WIDTH: number) =>
     storeItem: {
       width: ITEM_WIDTH,
       height: ITEM_WIDTH,
-      // backgroundColor: "#fff",
       borderRadius: ITEM_WIDTH / 2,
       shadowColor: "#000",
       shadowOffset: {
