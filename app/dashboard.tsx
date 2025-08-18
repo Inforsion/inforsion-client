@@ -1,7 +1,146 @@
 import { ThemedView } from "@/src/components/ThemedView";
+import { Colors } from "@/src/constants/Colors";
+import { Button } from "@/src/components/common/button/Button";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
+
+import RevenueChart from "../assets/icons/RevenueChart.svg";
+import { Image } from "expo-image";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import PeriodSelector from "@/src/components/dashboard/PeroidSelector";
+import { PeriodType } from "@/src/types/Dashboard";
+import { AntDesign } from "@expo/vector-icons";
+import InventoryAnalysis from "@/src/components/dashboard/analysis/InventoryAnalysis";
 
 const DashboardScreen = () => {
-  return <ThemedView></ThemedView>;
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? "light"];
+
+  const [selectedPeriod, setSelectedPeriod] = useState<PeriodType>("일");
+
+  const handlePeriodChange = (period: PeriodType) => {
+    setSelectedPeriod(period);
+    // 여기서 차트 데이터를 업데이트하는 로직을 추가할 수 있습니다
+    console.log(`Selected period: ${period}`);
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ThemedView style={styles.container}>
+        <View>
+          <Text style={styles.text}>{"서정우"} 사장님의 매출</Text>
+          <View style={styles.revenueContainer}>
+            <Text style={{ color: colors.success, ...styles.revenueText }}>
+              {(302532).toLocaleString()}
+            </Text>
+            <Text style={{ color: colors.text.primary }}>원</Text>
+          </View>
+
+          <Text style={styles.revenueInfo}>
+            {"2025.05.12"} 매출현황 입니다.
+          </Text>
+        </View>
+
+        {/* 매출 그래프 섹션*/}
+        <View style={styles.revenueChartContainer}>
+          <View style={styles.revenueChartHeader}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                source={RevenueChart}
+                style={{ width: 12, height: 12, marginRight: 4 }}
+              />
+              <Text style={{ fontWeight: 600 }}>매출</Text>
+            </View>
+            <PeriodSelector
+              selectedPeriod={selectedPeriod}
+              onPeriodChange={handlePeriodChange}
+            />
+          </View>
+
+          <View style={styles.revenueChart}>
+            <Text>{selectedPeriod} 단위 매출 그래프가 들어갈 예정.</Text>
+          </View>
+
+          <Button
+            variant={"primary"}
+            title="영수증으로 매출 입력하기"
+            onPress={() => console.log("Go to OCR")}
+            style={{
+              width: 240,
+              height: 32,
+              borderRadius: 12,
+              marginTop: 10,
+            }}
+            icon={<AntDesign name="right" size={16} color="white" />}
+          />
+        </View>
+        <InventoryAnalysis />
+      </ThemedView>
+    </SafeAreaView>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.light.background.primary,
+    padding: 10,
+    paddingVertical: 20,
+  },
+  text: {
+    fontFamily: "Pretendard",
+    fontWeight: "600",
+    fontSize: 11,
+  },
+  revenueContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  revenueText: {
+    fontFamily: "Pretendard",
+    fontWeight: 600,
+    fontSize: 27,
+    letterSpacing: 0,
+  },
+  revenueInfo: {
+    fontFamily: "Pretendard",
+    fontSize: 11,
+    fontWeight: 300,
+    color: Colors.light.text.weak,
+  },
+  revenueChartContainer: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  revenueChartHeader: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  revenueChart: {
+    width: "100%",
+    height: 200,
+    backgroundColor: Colors.light.gray[200],
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  goToOCRButton: {
+    backgroundColor: Colors.light.primary[500],
+    padding: 10,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default DashboardScreen;
