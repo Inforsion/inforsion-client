@@ -34,6 +34,7 @@ export const Colors = {
       primary: "#3D3D3D", // Font Color (dark gray)
       secondary: "#C5C6CC", // Light gray for secondary text
       inverse: "#FFFFFF", // White text for dark backgrounds
+      weak: "#343434",
     },
 
     // Background Colors
