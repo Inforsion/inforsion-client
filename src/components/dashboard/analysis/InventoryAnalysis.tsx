@@ -1,6 +1,7 @@
 import { Colors } from "@/src/constants/Colors";
 import { StyleSheet, Text, View, Image } from "react-native";
 import ChartImage from "../../../../assets/images/chart/mock/img.png";
+
 const InventoryAnalysis = () => {
   const 분석결과 = {
     title: "바닐라 시럽 30개 정도 필요해요",

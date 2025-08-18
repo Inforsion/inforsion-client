@@ -2,24 +2,26 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import ProfileSVG from "@/assets/icons/Profile.svg";
 import { Octicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const InforsionHeader = () => {
   const INFORSION_HEADER_TEXT = "Inforsion";
   return (
-    <View style={styles.container}>
-      <TouchableOpacity>
-        {/* 탭 아이콘*/}
-        <Octicons name="three-bars" size={24} color="black" />
-      </TouchableOpacity>
-      <Text style={styles.headerText}>{INFORSION_HEADER_TEXT}</Text>
-      <TouchableOpacity>
-        <Image
-          source={ProfileSVG}
-          style={{ width: 32, height: 32 }}
-          contentFit="contain"
-        />
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <TouchableOpacity>
+          <Octicons name="three-bars" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>{INFORSION_HEADER_TEXT}</Text>
+        <TouchableOpacity>
+          <Image
+            source={ProfileSVG}
+            style={{ width: 32, height: 32 }}
+            contentFit="contain"
+          />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
