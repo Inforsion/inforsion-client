@@ -16,11 +16,13 @@ const DashboardScreen = () => {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
 
+  const [selectedStore, setSelectedStore] = useState<string | null>(
+    "스타벅스 청당점",
+  );
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodType>("일");
 
   const handlePeriodChange = (period: PeriodType) => {
     setSelectedPeriod(period);
-    // 여기서 차트 데이터를 업데이트하는 로직을 추가할 수 있습니다
     console.log(`Selected period: ${period}`);
   };
 
@@ -28,7 +30,10 @@ const DashboardScreen = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <ThemedView style={styles.container}>
         <View>
-          <Text style={styles.text}>{"서정우"} 사장님의 매출</Text>
+          <Text style={styles.text}>
+            사장님의 <Text style={{ fontWeight: "bold" }}>{selectedStore}</Text>{" "}
+            가게의 매출
+          </Text>
           <View style={styles.revenueContainer}>
             <Text style={{ color: colors.success, ...styles.revenueText }}>
               {(302532).toLocaleString()}
@@ -95,7 +100,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Pretendard",
-    fontWeight: "600",
     fontSize: 11,
   },
   revenueContainer: {
