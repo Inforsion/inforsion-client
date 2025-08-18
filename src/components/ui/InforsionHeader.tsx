@@ -4,13 +4,14 @@ import { Image } from "expo-image";
 import ProfileSVG from "@/assets/icons/Profile.svg";
 
 const InforsionHeader = () => {
+  const INFORSION_HEADER_TEXT = "Inforsion";
   return (
     <View style={styles.container}>
       <TouchableOpacity>
         {/* 탭 아이콘*/}
         <Foundation name="list" size={24} color="black" />
       </TouchableOpacity>
-      <Text style={styles.headerText}>Inforsion</Text>
+      <Text style={styles.headerText}>{INFORSION_HEADER_TEXT}</Text>
       <TouchableOpacity>
         <Image
           source={ProfileSVG}
