@@ -1,7 +1,13 @@
 import { ThemedView } from "@/src/components/ThemedView";
 import { Colors } from "@/src/constants/Colors";
 import { Button } from "@/src/components/common/button/Button";
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
 
 import RevenueChart from "../assets/icons/RevenueChart.svg";
 import { Image } from "expo-image";
@@ -29,63 +35,66 @@ const DashboardScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ThemedView style={styles.container}>
-        <View>
-          <Text style={styles.text}>
-            사장님의 <Text style={{ fontWeight: "bold" }}>{selectedStore}</Text>{" "}
-            가게의 매출
-          </Text>
-          <View style={styles.revenueContainer}>
-            <Text style={{ color: colors.success, ...styles.revenueText }}>
-              {(302532).toLocaleString()}
+        <ScrollView>
+          <View>
+            <Text style={styles.text}>
+              사장님의{" "}
+              <Text style={{ fontWeight: "bold" }}>{selectedStore}</Text> 가게의
+              매출
             </Text>
-            <Text style={{ color: colors.text.primary }}>원</Text>
+            <View style={styles.revenueContainer}>
+              <Text style={{ color: colors.success, ...styles.revenueText }}>
+                {(302532).toLocaleString()}
+              </Text>
+              <Text style={{ color: colors.text.primary }}>원</Text>
+            </View>
+
+            <Text style={styles.revenueInfo}>
+              {"2025.05.12"} 매출현황 입니다.
+            </Text>
           </View>
 
-          <Text style={styles.revenueInfo}>
-            {"2025.05.12"} 매출현황 입니다.
-          </Text>
-        </View>
-
-        {/* 매출 그래프 섹션*/}
-        <View style={styles.revenueChartContainer}>
-          <View style={styles.revenueChartHeader}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                source={RevenueChart}
-                style={{ width: 12, height: 12, marginRight: 4 }}
+          {/* 매출 그래프 섹션*/}
+          <View style={styles.revenueChartContainer}>
+            <View style={styles.revenueChartHeader}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  source={RevenueChart}
+                  style={{ width: 12, height: 12, marginRight: 4 }}
+                />
+                <Text style={{ fontWeight: 600 }}>매출</Text>
+              </View>
+              <PeriodSelector
+                selectedPeriod={selectedPeriod}
+                onPeriodChange={handlePeriodChange}
               />
-              <Text style={{ fontWeight: 600 }}>매출</Text>
             </View>
-            <PeriodSelector
-              selectedPeriod={selectedPeriod}
-              onPeriodChange={handlePeriodChange}
+
+            <View style={styles.revenueChart}>
+              <Text>{selectedPeriod} 단위 매출 그래프가 들어갈 예정.</Text>
+            </View>
+
+            <Button
+              variant={"primary"}
+              title="영수증으로 매출 입력하기"
+              onPress={() => console.log("Go to OCR")}
+              style={{
+                width: 240,
+                height: 32,
+                borderRadius: 12,
+                marginTop: 10,
+              }}
+              icon={<AntDesign name="right" size={16} color="white" />}
             />
           </View>
-
-          <View style={styles.revenueChart}>
-            <Text>{selectedPeriod} 단위 매출 그래프가 들어갈 예정.</Text>
-          </View>
-
-          <Button
-            variant={"primary"}
-            title="영수증으로 매출 입력하기"
-            onPress={() => console.log("Go to OCR")}
-            style={{
-              width: 240,
-              height: 32,
-              borderRadius: 12,
-              marginTop: 10,
-            }}
-            icon={<AntDesign name="right" size={16} color="white" />}
-          />
-        </View>
-        <InventoryAnalysis />
+          <InventoryAnalysis />
+        </ScrollView>
       </ThemedView>
     </SafeAreaView>
   );
@@ -122,7 +131,7 @@ const styles = StyleSheet.create({
   revenueChartContainer: {
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginVertical: 20,
   },
   revenueChartHeader: {
     flex: 1,
