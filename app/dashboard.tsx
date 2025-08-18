@@ -40,7 +40,7 @@ const DashboardScreen = () => {
 
   return (
     <>
-      <StatusBar style={"dark"} backgroundColor={"#fff"} />{" "}
+      <StatusBar style={"dark"} backgroundColor={"#fff"} />
       <StatusBarCover insets={insets} />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ThemedView style={styles.container}>
