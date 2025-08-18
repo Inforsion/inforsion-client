@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Foundation } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import ProfileSVG from "@/assets/icons/Profile.svg";
+import { Octicons } from "@expo/vector-icons";
 
 const InforsionHeader = () => {
   const INFORSION_HEADER_TEXT = "Inforsion";
@@ -9,7 +9,7 @@ const InforsionHeader = () => {
     <View style={styles.container}>
       <TouchableOpacity>
         {/* 탭 아이콘*/}
-        <Foundation name="list" size={24} color="black" />
+        <Octicons name="three-bars" size={24} color="black" />
       </TouchableOpacity>
       <Text style={styles.headerText}>{INFORSION_HEADER_TEXT}</Text>
       <TouchableOpacity>
