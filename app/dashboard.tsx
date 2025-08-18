@@ -151,6 +151,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.gray[200],
     borderRadius: 10,
     marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
   goToOCRButton: {
     backgroundColor: Colors.light.primary[300],
