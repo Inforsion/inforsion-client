@@ -21,7 +21,6 @@ import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const colors = colorScheme === "dark" ? Colors.dark : Colors.light;
-  const insets = useSafeAreaInsets();
 
   return (
     <>
