@@ -13,6 +13,7 @@ import { mockStores } from "@/src/constants/Store";
 import storeStyles from "@/src/styles/StoreStyle";
 import AnimatedStoreItem from "@/src/components/store/AnimatedStoreItem";
 import AnimatedCreateButton from "@/src/components/store/AnimatedCreateButton";
+import { useRouter } from "expo-router";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const ITEM_WIDTH = 150;
@@ -24,6 +25,7 @@ const styles = storeStyles(SCREEN_WIDTH);
 
 const Stores = () => {
   const [ownedStores, setOwnedStores] = useState<Store[]>(mockStores);
+  const router = useRouter();
 
   const scrollX = useSharedValue(0);
   const scrollViewRef = useRef<ScrollView>(null);
@@ -45,6 +47,11 @@ const Stores = () => {
       x: snapOffset,
       animated: true,
     });
+  };
+
+  const onClick = () => {
+    console.log("Store clicked");
+    router.navigate("/dashboard");
   };
 
   return (
@@ -72,6 +79,7 @@ const Stores = () => {
                   index={index}
                   scrollX={scrollX}
                   styles={styles}
+                  onClickStore={onClick}
                 />
               ))}
               <AnimatedCreateButton

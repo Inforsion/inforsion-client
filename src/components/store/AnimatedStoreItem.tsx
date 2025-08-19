@@ -5,7 +5,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { Image } from "expo-image";
 
 const ITEM_WIDTH = 150;
@@ -21,6 +21,7 @@ interface AnimatedStoreItemProps {
     storeItem: any;
     storeImage: any;
   };
+  onClickStore: () => void;
 }
 
 const AnimatedStoreItem = ({
@@ -28,6 +29,7 @@ const AnimatedStoreItem = ({
   index,
   scrollX,
   styles,
+  onClickStore,
 }: AnimatedStoreItemProps) => {
   const animatedStyle = useAnimatedStyle(() => {
     const inputRange = [
@@ -58,14 +60,16 @@ const AnimatedStoreItem = ({
 
   return (
     <View style={styles.storeWrapper}>
-      <Animated.View style={[styles.storeItem, animatedStyle]}>
-        <Image
-          source={store.thumbnailURL}
-          alt={store.storeTitle || "가게 이미지"}
-          style={styles.storeImage}
-          contentFit="cover"
-        />
-      </Animated.View>
+      <Pressable onPress={onClickStore}>
+        <Animated.View style={[styles.storeItem, animatedStyle]}>
+          <Image
+            source={store.thumbnailURL}
+            alt={store.storeTitle || "가게 이미지"}
+            style={styles.storeImage}
+            contentFit="cover"
+          />
+        </Animated.View>
+      </Pressable>
       <Text
         style={{
           fontFamily: "Pretendard",

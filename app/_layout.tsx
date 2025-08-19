@@ -9,9 +9,8 @@ import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import { useEffect, useState } from "react";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { useColorScheme } from "@/src/hooks/useColorScheme";
+import InforsionHeader from "@/src/components/ui/InforsionHeader";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -30,20 +29,6 @@ export default function RootLayout() {
   }, []);
 
   // 라우팅 로직
-  useEffect(() => {
-    if (!loaded || isStoreLoading) return;
-
-    const inStoresScreen = segments[0] === "stores";
-    const inTabsScreen = segments[0] === "(tabs)";
-
-    if (!selectedStore && !inStoresScreen) {
-      // 가게가 선택되지 않았고 stores 화면이 아니면 stores로 이동
-      router.replace("/stores");
-    } else if (selectedStore && inStoresScreen && segments.length === 1) {
-      // 가게가 선택되었고 stores 화면(변경 모드가 아닌)에 있으면 tabs로 이동
-      router.replace("/(tabs)");
-    }
-  }, [selectedStore, loaded, isStoreLoading, segments]);
 
   const loadSelectedStore = async () => {
     try {
@@ -61,7 +46,6 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
           name="stores"
           options={{
@@ -69,9 +53,17 @@ export default function RootLayout() {
             headerShown: !!selectedStore,
           }}
         />
+        <Stack.Screen
+          name="dashboard"
+          options={({ navigation }) => ({
+            headerShown: true,
+            title: "대시보드",
+            header: () => <InforsionHeader />,
+          })}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar backgroundColor={"#fff"} />
     </ThemeProvider>
   );
 }
