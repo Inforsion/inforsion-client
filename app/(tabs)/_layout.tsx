@@ -9,6 +9,14 @@ import { Colors } from "@/src/constants/Colors";
 import StatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
+import HomeSVG from "../../assets/icons/home.svg";
+import HomeActiveSVG from "@/assets/icons/home-active.svg";
+import RevenueSVG from "../../assets/icons/revenue.svg";
+import RevenueActiveSVG from "@/assets/icons/revenue-active.svg";
+import InventorySVG from "../../assets/icons/inventory.svg";
+import InventoryActiveSVG from "@/assets/icons/inventory-active.svg";
+import OperationSVG from "../../assets/icons/operation.svg";
+import OperationActiveSVG from "@/assets/icons/operation-active.svg";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -20,8 +28,8 @@ export default function TabLayout() {
       <StatusBarCover insets={insets} />
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: colors.success,
-          tabBarInactiveTintColor: colors.gray["50"],
+          tabBarActiveTintColor: colors.primary["600"],
+          tabBarInactiveTintColor: colors.inactive,
           headerShown: true,
           tabBarButton: HapticTab,
           tabBarBackground: TabBarBackground,
@@ -44,10 +52,18 @@ export default function TabLayout() {
             title: "대시보드",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return <Image source={require("@/assets/icons/home.svg")} />;
+                return (
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={HomeActiveSVG}
+                  />
+                );
               } else {
                 return (
-                  <Image source={require("@/assets/icons/home-active.svg")} />
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={HomeSVG}
+                  />
                 );
               }
             },
@@ -58,13 +74,23 @@ export default function TabLayout() {
           name="revenue"
           options={{
             title: "매출",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="calendar-outline"
-                size={size || 28}
-                color={color}
-              />
-            ),
+            tabBarIcon: ({ color, focused, size }) => {
+              if (focused) {
+                return (
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={RevenueActiveSVG}
+                  />
+                );
+              } else {
+                return (
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={RevenueSVG}
+                  />
+                );
+              }
+            },
             headerShown: false,
           }}
         />
@@ -72,13 +98,23 @@ export default function TabLayout() {
           name="inventory"
           options={{
             title: "재고",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="chatbubbles-outline"
-                size={size || 28}
-                color={color}
-              />
-            ),
+            tabBarIcon: ({ color, focused, size }) => {
+              if (focused) {
+                return (
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={InventoryActiveSVG}
+                  />
+                );
+              } else {
+                return (
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={InventorySVG}
+                  />
+                );
+              }
+            },
             headerShown: false,
           }}
         />
@@ -86,9 +122,23 @@ export default function TabLayout() {
           name="operation"
           options={{
             title: "운영",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-outline" size={size || 28} color={color} />
-            ),
+            tabBarIcon: ({ color, focused, size }) => {
+              if (focused) {
+                return (
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={OperationActiveSVG}
+                  />
+                );
+              } else {
+                return (
+                  <Image
+                    style={{ width: size, height: size }}
+                    source={OperationSVG}
+                  />
+                );
+              }
+            },
             headerShown: false,
           }}
         />
