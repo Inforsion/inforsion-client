@@ -12,30 +12,34 @@ import {
   Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import RevenueSVG from "@/assets/icons/revenue-outline.svg";
+import OperationSVG from "@/assets/icons/operation.svg";
+import InventorySVG from "@/assets/icons/inventory.svg";
+import RecipeSVG from "@/assets/icons/recipe.svg";
+import { Image } from "expo-image";
+import Icon from "@/src/components/common/Icon";
 
-interface SidebarProps {}
-
-const Sidebar = ({}: SidebarProps) => {
+const Sidebar = () => {
   const menuItems = [
     {
       id: "sales",
       title: "매출",
-      icon: "bar-chart-outline",
+      icon: RevenueSVG,
     },
     {
       id: "inventory",
       title: "재고",
-      icon: "storefront-outline",
+      icon: InventorySVG,
     },
     {
       id: "operations",
       title: "운영",
-      icon: "time-outline",
+      icon: OperationSVG,
     },
     {
       id: "menu",
       title: "우리 가게 메뉴",
-      icon: "restaurant-outline",
+      icon: RecipeSVG,
     },
   ];
 
@@ -62,7 +66,7 @@ const Sidebar = ({}: SidebarProps) => {
               style={styles.menuItem}
               activeOpacity={0.7}
             >
-              <Ionicons name={item.icon as any} size={24} color="#333" />
+              <Icon icon={item.icon} size={24} color={"black"} />
               <Text style={styles.menuText}>{item.title}</Text>
             </TouchableOpacity>
           ))}
