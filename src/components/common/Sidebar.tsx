@@ -72,7 +72,7 @@ const Sidebar = () => {
           ))}
         </View>
         <TouchableOpacity style={styles.manualButton} activeOpacity={0.8}>
-          <Text style={styles.manualButtonText}>매뉴얼북 하러가기 →</Text>
+          <Text style={styles.manualButtonText}>메뉴 등록 하러가기 →</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.logoutItem} activeOpacity={0.7}>
           <Ionicons name="log-out-outline" size={24} color="#666" />
