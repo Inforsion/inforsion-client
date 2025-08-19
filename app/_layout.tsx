@@ -8,7 +8,7 @@ import { useFonts } from "expo-font";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useColorScheme } from "@/src/hooks/useColorScheme";
 import InforsionHeader from "@/src/components/ui/InforsionHeader";
 
@@ -34,11 +34,9 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="(tabs)"
+          name="(drawer)"
           options={({ navigation }) => ({
-            headerShown: true,
-            title: "대시보드",
-            header: () => <InforsionHeader />,
+            headerShown: false,
           })}
         />
         <Stack.Screen name="+not-found" />

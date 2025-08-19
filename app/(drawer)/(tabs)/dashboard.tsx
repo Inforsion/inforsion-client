@@ -21,13 +21,13 @@ import { AntDesign } from "@expo/vector-icons";
 import InventoryAnalysis from "@/src/components/dashboard/analysis/InventoryAnalysis";
 import { StatusBar } from "expo-status-bar";
 import StatusBarCover from "@/src/components/ui/IOSStatusBarCover";
+import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 
 const DashboardScreen = () => {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
-  const insets = useSafeAreaInsets();
 
-  const [selectedStore, setSelectedStore] = useState<string | null>(
+  const [selectedStore, setselectedStore] = useState<string | null>(
     "스타벅스 청당점",
   );
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodType>("일");
@@ -40,7 +40,6 @@ const DashboardScreen = () => {
   return (
     <>
       <StatusBar style={"dark"} backgroundColor={"#fff"} />
-      <StatusBarCover insets={insets} />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ThemedView style={styles.container}>
           <ScrollView>
