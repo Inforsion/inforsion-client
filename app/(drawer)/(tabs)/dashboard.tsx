@@ -22,6 +22,7 @@ import InventoryAnalysis from "@/src/components/dashboard/analysis/InventoryAnal
 import { StatusBar } from "expo-status-bar";
 import StatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
+import Icon from "@/src/components/common/Icon";
 
 const DashboardScreen = () => {
   const colorScheme = useColorScheme();
@@ -71,9 +72,11 @@ const DashboardScreen = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Image
-                    source={RevenueChart}
-                    style={{ width: 12, height: 12, marginRight: 4 }}
+                  <Icon
+                    icon={RevenueChart}
+                    size={12}
+                    style={{ marginRight: 4 }}
+                    color={colors.primary["600"]}
                   />
                   <Text style={{ fontWeight: 600 }}>매출</Text>
                 </View>
