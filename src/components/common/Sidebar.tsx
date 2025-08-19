@@ -16,7 +16,6 @@ import RevenueSVG from "@/assets/icons/revenue-outline.svg";
 import OperationSVG from "@/assets/icons/operation.svg";
 import InventorySVG from "@/assets/icons/inventory.svg";
 import RecipeSVG from "@/assets/icons/recipe.svg";
-import { Image } from "expo-image";
 import Icon from "@/src/components/common/Icon";
 
 const Sidebar = () => {
