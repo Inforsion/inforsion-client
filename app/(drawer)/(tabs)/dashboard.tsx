@@ -9,19 +9,13 @@ import {
   View,
 } from "react-native";
 import RevenueChart from "@/assets/icons/revenue-chart.svg";
-import { Image } from "expo-image";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import PeriodSelector from "@/src/components/dashboard/PeriodSelector";
 import { PeriodType } from "@/src/types/Dashboard";
 import { AntDesign } from "@expo/vector-icons";
 import InventoryAnalysis from "@/src/components/dashboard/analysis/InventoryAnalysis";
 import { StatusBar } from "expo-status-bar";
-import StatusBarCover from "@/src/components/ui/IOSStatusBarCover";
-import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 import Icon from "@/src/components/common/Icon";
 
 const DashboardScreen = () => {
@@ -43,7 +37,7 @@ const DashboardScreen = () => {
       <StatusBar style={"dark"} backgroundColor={"#fff"} />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ThemedView style={styles.container}>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View>
               <Text style={styles.text}>
                 사장님의{" "}
