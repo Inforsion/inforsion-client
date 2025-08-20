@@ -33,7 +33,7 @@ const CreateStoreScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
         <StepIndicator />
 
