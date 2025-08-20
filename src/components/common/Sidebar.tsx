@@ -17,6 +17,7 @@ import OperationSVG from "@/assets/icons/operation.svg";
 import InventorySVG from "@/assets/icons/inventory.svg";
 import RecipeSVG from "@/assets/icons/recipe.svg";
 import Icon from "@/src/components/common/Icon";
+import { Colors } from "@/src/constants/Colors";
 
 const Sidebar = () => {
   const menuItems = [
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   manualButton: {
-    backgroundColor: "#007AFF",
+    backgroundColor: Colors.light.primary["300"],
     paddingVertical: 16,
     paddingHorizontal: 20,
     borderRadius: 12,
