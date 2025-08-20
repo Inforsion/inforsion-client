@@ -15,7 +15,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { useState } from "react";
-import PeriodSelector from "@/src/components/dashboard/PeroidSelector";
+import PeriodSelector from "@/src/components/dashboard/PeriodSelector";
 import { PeriodType } from "@/src/types/Dashboard";
 import { AntDesign } from "@expo/vector-icons";
 import InventoryAnalysis from "@/src/components/dashboard/analysis/InventoryAnalysis";
