@@ -53,6 +53,10 @@ const Stores = () => {
     console.log("Store clicked");
     router.navigate("/dashboard");
   };
+  const onCreateStore = () => {
+    console.log("Create Store clicked");
+    router.navigate("/create-store");
+  };
 
   return (
     <ThemedView style={styles.container}>
@@ -86,10 +90,16 @@ const Stores = () => {
                 index={ownedStores.length}
                 scrollX={scrollX}
                 styles={styles}
+                onPress={onCreateStore}
               />
             </>
           ) : (
-            <AnimatedCreateButton index={0} scrollX={scrollX} styles={styles} />
+            <AnimatedCreateButton
+              index={0}
+              scrollX={scrollX}
+              styles={styles}
+              onPress={onCreateStore}
+            />
           )}
         </AnimatedScrollView>
         <Image source={LogoText} style={styles.logo} />

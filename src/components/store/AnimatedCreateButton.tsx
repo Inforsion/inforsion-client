@@ -4,7 +4,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import CreateStoreButton from "@/src/components/store/CreateStoreButton";
 
 const ITEM_WIDTH = 150;
@@ -19,12 +19,14 @@ interface AnimatedCreateButtonProps {
     storeItem: any;
     storeImage: any;
   };
+  onPress: () => void;
 }
 
 const AnimatedCreateButton = ({
   index,
   scrollX,
   styles,
+  onPress,
 }: AnimatedCreateButtonProps) => {
   const animatedStyle = useAnimatedStyle(() => {
     const inputRange = [
@@ -54,11 +56,11 @@ const AnimatedCreateButton = ({
   });
 
   return (
-    <View style={styles.storeWrapper}>
+    <TouchableOpacity onPress={onPress} style={styles.storeWrapper}>
       <Animated.View style={[styles.storeItem, animatedStyle]}>
         <CreateStoreButton style={styles.storeImage} />
       </Animated.View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
