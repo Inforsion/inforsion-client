@@ -11,6 +11,7 @@ import StepIndicator from "@/src/components/Ingr/StepIndicator";
 import InputField from "@/src/components/Ingr/InputField";
 import React, { useState } from "react";
 import CameraImg from "@/assets/images/Ingr/camera.png";
+import { getStoreById } from "@/api/store/storeAPI";
 
 const CreateStoreScreen = () => {
   const [storeForm, setStoreForm] = useState({
@@ -23,11 +24,14 @@ const CreateStoreScreen = () => {
     setStoreForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!storeForm.name || !storeForm.description) {
       alert("가게 이름과 설명을 입력해주세요.");
       return;
     }
+
+    const data = await getStoreById(1);
+    console.log("서버 응답:", data);
     // 여기에 가게 생성 로직 추가
     console.log("가게 정보:", storeForm);
   };
