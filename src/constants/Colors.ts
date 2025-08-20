@@ -13,6 +13,7 @@ export const Colors = {
       300: "#2897FF",
       400: "#006FFD",
       500: "#006FFD", // Main primary color
+      600: "#386BF6",
     },
 
     // Gray Scale
@@ -28,6 +29,7 @@ export const Colors = {
     // Semantic Colors
     success: "#2897FF", // positive (blue)
     error: "#FF7173", // negative (red/pink)
+    inactive: "#9DB2CE",
 
     // Text Colors
     text: {
@@ -60,6 +62,7 @@ export const Colors = {
       300: "#0066CC",
       400: "#2897FF",
       500: "#2897FF", // Lighter blue for dark mode
+      600: "#386BF6",
     },
 
     // Gray Scale (inverted for dark mode)
@@ -75,6 +78,7 @@ export const Colors = {
     // Semantic Colors
     success: "#2897FF",
     error: "#FF7173",
+    inactive: "#9DB2CE",
 
     // Text Colors
     text: {

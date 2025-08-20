@@ -23,26 +23,6 @@ export default function RootLayout() {
   const [selectedStore, setSelectedStore] = useState<string | null>(null);
   const [isStoreLoading, setIsStoreLoading] = useState(true);
 
-  // 저장된 가게 정보 불러오기
-  useEffect(() => {
-    loadSelectedStore();
-  }, []);
-
-  // 라우팅 로직
-
-  const loadSelectedStore = async () => {
-    try {
-    } catch (error) {
-      console.error("Error loading selected store:", error);
-    } finally {
-      setIsStoreLoading(false);
-    }
-  };
-
-  if (!loaded || isStoreLoading) {
-    return null; // 또는 로딩 스피너
-  }
-
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
@@ -54,7 +34,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="dashboard"
+          name="(tabs)"
           options={({ navigation }) => ({
             headerShown: true,
             title: "대시보드",

@@ -8,8 +8,7 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-
-import RevenueChart from "../assets/icons/RevenueChart.svg";
+import RevenueChart from "@/assets/icons/revenue-chart.svg";
 import { Image } from "expo-image";
 import {
   SafeAreaView,
