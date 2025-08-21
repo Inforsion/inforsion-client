@@ -1,26 +1,110 @@
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { Colors } from "@/src/constants/Colors";
 import Row from "@/src/components/revenue/Row";
 import { AntDesign } from "@expo/vector-icons";
+import { useState } from "react";
+import RevenueInput from "@/src/components/revenue/RevenueInput";
 
 interface CreateRevenueProps {
   toggleCreateRevenue: () => void;
 }
 
+interface RevenueData {
+  매출합계: number | null;
+  카드: number | null;
+  현금: number | null;
+  기타: number | null;
+  원가합계: number | null;
+  재료비: number | null;
+  고정비: number | null;
+  세금합계: number | null;
+  부가세: number | null;
+}
+
+type Data = RowHeaderData[];
+
+interface RowHeaderData extends RowData {
+  subRows: RowData[];
+}
+
+interface RowData {
+  label: string;
+  value: number | null;
+}
+
 const CreateRevenue = ({ toggleCreateRevenue }: CreateRevenueProps) => {
-  const NoRevenue = () => {
-    return (
-      <View>
-        <Text
-          style={{
-            textDecorationStyle: "solid",
-            textDecorationLine: "underline",
-          }}
-        >
-          입력하기
-        </Text>
-      </View>
+  const mockData = {
+    매출합계: 302532,
+    카드: 302032,
+    현금: 500,
+    기타: 0,
+    원가합계: 322,
+    재료비: 322,
+    고정비: null,
+    세금합계: 0,
+    부가세: 0,
+  };
+
+  const [revenueData, setRevenueData] = useState<Data>([
+    {
+      label: "매출합계",
+      value: mockData.매출합계,
+      subRows: [
+        { label: "카드", value: mockData.카드 },
+        { label: "현금", value: mockData.현금 },
+        { label: "기타", value: mockData.기타 },
+      ],
+    },
+    {
+      label: "원가합계",
+      value: 0,
+      subRows: [
+        { label: "재료비", value: mockData.재료비 },
+        { label: "고정비", value: mockData.고정비 },
+      ],
+    },
+    {
+      label: "세금합계",
+      value: 0,
+      subRows: [{ label: "부가세", value: 0 }],
+    },
+  ]);
+
+  const setValue = (label: string, value: number | null) => {
+    const row = revenueData.find((row) =>
+      row.subRows.find((row) => row.label === label),
     );
+    if (!row) {
+      throw new Error(`${label}을 가진 행을 찾을 수 없습니다.`);
+    }
+
+    const updatedSubRows = row.subRows.map((subRow) => {
+      if (subRow.label === label) {
+        return { ...subRow, value: value };
+      }
+      return subRow;
+    });
+
+    const updatedData = revenueData.map((rowHead) => {
+      if (rowHead.label === row.label) {
+        return {
+          ...rowHead,
+          value: updatedSubRows.reduce(
+            (acc, cur) => (acc += cur.value || 0),
+            0,
+          ),
+          subRows: updatedSubRows,
+        };
+      }
+      return rowHead;
+    });
+    setRevenueData(updatedData);
   };
 
   return (
@@ -31,33 +115,28 @@ const CreateRevenue = ({ toggleCreateRevenue }: CreateRevenueProps) => {
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
           <AntDesign name="arrowleft" size={16} color="black" />
-          <Text
-            style={{
-              textDecorationStyle: "solid",
-              textDecorationLine: "underline",
-            }}
-          >
-            작성 취소
-          </Text>
+          <Text>작성 취소</Text>
         </View>
       </TouchableOpacity>
-      {/* 매출 */}
-      <Row label={"매출"} value={302532} isHeader={true}></Row>
-      <Row label={"카드"} value={302000}></Row>
-      <Row label={"현금"} value={500}></Row>
-
-      <View style={styles.row}>
-        <Text style={styles.label}>기타</Text>
-        <NoRevenue />
-      </View>
-      {/* 원가 */}
-      <Row label={"원가"} value={302532} isHeader={true}></Row>
-      <Row label={"재료비"} value={302000}></Row>
-      <Row label={"고정비"} value={302000}></Row>
-
-      {/* 세금 */}
-      <Row label={"세금"} value={30253} isHeader></Row>
-      <Row label={"부가세"} value={30253}></Row>
+      {revenueData.map((row) => (
+        <>
+          <Row
+            key={row.label}
+            label={row.label}
+            value={row.value}
+            setValue={setValue}
+            isHeader
+          />
+          {row.subRows.map((subRow) => (
+            <Row
+              key={subRow.label}
+              label={subRow.label}
+              value={subRow.value}
+              setValue={setValue}
+            />
+          ))}
+        </>
+      ))}
     </View>
   );
 };
