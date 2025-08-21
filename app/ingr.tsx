@@ -29,6 +29,20 @@ const Ingr = () => {
     const [stock, setStock] = useState('');
     const [quantity, setQuantity] = useState('');
     const [stockList, setStockList] = useState<StockItem[]>([]);
+    const [edit, setEdit] = useState(false);
+    const [selected, setSelected] = useState<string[]>([]);
+
+    const toggleSelect = (id: string) => {
+        setSelected(prev =>
+            prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]
+        );
+    };
+
+    const handleDeleteSelected = () => {
+        if (selected.length === 0) return;
+        setStockList(prev => prev.filter(item => !selected.includes(item.id)));
+        setSelected([]);
+    };
 
     const handleSubmit = () => {
         if (!name.trim() || !price.trim() || !stock.trim() || !quantity.trim()) {
@@ -95,10 +109,16 @@ const Ingr = () => {
                     <Text style={ingrStyles.submitText}>저장</Text>
                 </TouchableOpacity>
 
-                <View style={ingrStyles.card}>
+                <View style={[ingrStyles.card, { position: 'relative' }]}>
                     <View style={ingrStyles.headerRow}>
                         <Text style={ingrStyles.listTitle}>재고 목록</Text>
-                        <Text style={ingrStyles.editText}>수정하기</Text>
+
+                        <TouchableOpacity onPress={() => {
+                            setEdit(m => !m);
+                            setSelected([]);
+                        }}>
+                            <Text style={ingrStyles.editText}>{edit ? '완료' : '수정하기'}</Text>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={ingrStyles.tableHeader}>
@@ -118,11 +138,28 @@ const Ingr = () => {
                             <FlatList
                                 data={stockList}
                                 keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => <StockListItem item={item} />}
+                                renderItem={({ item }) => (
+                                    <StockListItem
+                                        item={item}
+                                        edit={edit}
+                                        selected={selected.includes(item.id)}
+                                        onToggle={() => toggleSelect(item.id)}
+                                    />
+                                )}
                                 scrollEnabled={stockList.length > 5}
-                                showsVerticalScrollIndicator={true}
+                                showsVerticalScrollIndicator
                             />
                         </View>
+                    )}
+
+                    {edit && selected.length > 0 && (
+                        <TouchableOpacity
+                            onPress={handleDeleteSelected}
+                            style={ingrStyles.deleteBtn}
+                            activeOpacity={0.9}
+                        >
+                            <Text style={ingrStyles.deleteBtnText}>삭제</Text>
+                        </TouchableOpacity>
                     )}
                 </View>
 
