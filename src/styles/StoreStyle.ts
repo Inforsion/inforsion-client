@@ -53,7 +53,7 @@ const storeStyles = (SCREEN_WIDTH: number) =>
     logo: {
       position: "absolute",
       width: 100,
-      height: 25,
+      height: 24,
       bottom: 40,
     },
   });
