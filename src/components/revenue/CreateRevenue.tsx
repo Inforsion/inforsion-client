@@ -9,7 +9,6 @@ import { Colors } from "@/src/constants/Colors";
 import Row from "@/src/components/revenue/Row";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
-import RevenueInput from "@/src/components/revenue/RevenueInput";
 
 interface CreateRevenueProps {
   toggleCreateRevenue: () => void;
@@ -119,7 +118,7 @@ const CreateRevenue = ({ toggleCreateRevenue }: CreateRevenueProps) => {
         </View>
       </TouchableOpacity>
       {revenueData.map((row) => (
-        <>
+        <View key={row.label}>
           <Row
             key={row.label}
             label={row.label}
@@ -135,7 +134,7 @@ const CreateRevenue = ({ toggleCreateRevenue }: CreateRevenueProps) => {
               setValue={setValue}
             />
           ))}
-        </>
+        </View>
       ))}
     </View>
   );
