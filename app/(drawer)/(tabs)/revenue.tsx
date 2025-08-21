@@ -78,37 +78,39 @@ const RevenueScreen: React.FC = () => {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
           {/* Sales Overview */}
-          <View style={styles.salesOverview}>
-            <View style={styles.salesItem}>
-              <Text style={styles.salesLabel}>일 매출</Text>
-              <Text style={styles.salesValue}>
-                {formatNumber(data.totalSales)}원
-              </Text>
-            </View>
+          <View style={styles.salesOverviewContainer}>
+            <View style={styles.salesOverview}>
+              <View style={styles.salesItem}>
+                <Text style={styles.salesLabel}>일 매출</Text>
+                <Text style={styles.salesValue}>
+                  {formatNumber(data.totalSales)}원
+                </Text>
+              </View>
 
-            <View style={styles.salesItem}>
-              <Text style={styles.salesLabel}>순이익</Text>
-              <Text style={styles.salesValue}>
-                {formatNumber(data.profit)}원
-              </Text>
+              <View style={styles.salesItem}>
+                <Text style={styles.salesLabel}>순이익</Text>
+                <Text style={styles.salesValue}>
+                  {formatNumber(data.profit)}원
+                </Text>
+              </View>
             </View>
-          </View>
-          {/* Change Indicator */}
-          <View style={styles.changeContainer}>
-            <Text
-              style={[
-                styles.changeValue,
-                {
-                  color: isPositiveChange
-                    ? Colors.light.success
-                    : Colors.light.error,
-                },
-              ]}
-            >
-              {isPositiveChange ? "+" : ""}
-              {formatNumber(data.change)}원
-            </Text>
-            <Text style={styles.changeDate}>{data.changeDate} 기준</Text>
+            {/* Change Indicator */}
+            <View style={styles.changeContainer}>
+              <Text
+                style={[
+                  styles.changeValue,
+                  {
+                    color: isPositiveChange
+                      ? Colors.light.success
+                      : Colors.light.error,
+                  },
+                ]}
+              >
+                {isPositiveChange ? "+" : ""}
+                {formatNumber(data.change)}원
+              </Text>
+              <Text style={styles.changeDate}>{data.changeDate} 기준</Text>
+            </View>
           </View>
           {/* Action Cards */}
           <View style={styles.actionCards}>
@@ -166,6 +168,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 20,
+  },
+  salesOverviewContainer: {
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 20,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: Colors.light.border.primary,
   },
   salesOverview: {
     flexDirection: "row",

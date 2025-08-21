@@ -46,6 +46,10 @@ export const Colors = {
       tertiary: "#E8E9F1",
     },
 
+    border: {
+      primary: "#BDBDBD", // Light gray for borders
+    },
+
     // Legacy support (기존 컴포넌트 호환성)
     tint: "#006FFD",
     icon: "#C5C6CC",
@@ -92,6 +96,10 @@ export const Colors = {
       primary: "#151718",
       secondary: "#1E1E1E",
       tertiary: "#2A2A2A",
+    },
+
+    border: {
+      primary: "#BDBDBD", // Light gray for borders
     },
 
     // Legacy support
