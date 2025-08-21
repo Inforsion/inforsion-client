@@ -148,4 +148,45 @@ export const ingrStyles = StyleSheet.create({
         fontSize: 10,
         color: '#888',
     },
+    checkboxBox: {
+        width: 16,
+        height: 16,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#D9D9D9',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    checkboxBoxChecked: {
+        backgroundColor: '#FF7173',
+        borderColor: '#FF7173',
+    },
+    checkboxMark: {
+        color: '#fff',
+        fontSize: 11,
+        lineHeight: 12,
+        fontWeight: '700',
+    },
+
+    tdCell: {
+        flex: 1,
+        alignItems: 'center',
+    },
+
+    deleteBtn: {
+        marginTop: 12,
+        height: 48,
+        borderRadius: 12,
+        backgroundColor: '#FF7173',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    deleteBtnText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+
+
 });
