@@ -9,25 +9,20 @@ import {
   View,
 } from "react-native";
 import RevenueChart from "@/assets/icons/revenue-chart.svg";
-import { Image } from "expo-image";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
-import PeriodSelector from "@/src/components/dashboard/PeroidSelector";
+import PeriodSelector from "@/src/components/dashboard/PeriodSelector";
 import { PeriodType } from "@/src/types/Dashboard";
 import { AntDesign } from "@expo/vector-icons";
 import InventoryAnalysis from "@/src/components/dashboard/analysis/InventoryAnalysis";
 import { StatusBar } from "expo-status-bar";
-import StatusBarCover from "@/src/components/ui/IOSStatusBarCover";
+import Icon from "@/src/components/common/Icon";
 
 const DashboardScreen = () => {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
-  const insets = useSafeAreaInsets();
 
-  const [selectedStore, setSelectedStore] = useState<string | null>(
+  const [selectedStore, setselectedStore] = useState<string | null>(
     "스타벅스 청당점",
   );
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodType>("일");
@@ -40,10 +35,9 @@ const DashboardScreen = () => {
   return (
     <>
       <StatusBar style={"dark"} backgroundColor={"#fff"} />
-      <StatusBarCover insets={insets} />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ThemedView style={styles.container}>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View>
               <Text style={styles.text}>
                 사장님의{" "}
@@ -72,9 +66,11 @@ const DashboardScreen = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Image
-                    source={RevenueChart}
-                    style={{ width: 12, height: 12, marginRight: 4 }}
+                  <Icon
+                    icon={RevenueChart}
+                    size={12}
+                    style={{ marginRight: 4 }}
+                    color={colors.primary["600"]}
                   />
                   <Text style={{ fontWeight: 600 }}>매출</Text>
                 </View>

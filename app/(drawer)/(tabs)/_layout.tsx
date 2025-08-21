@@ -8,23 +8,22 @@ import { Colors } from "@/src/constants/Colors";
 import StatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
-import HomeSVG from "../../assets/icons/home.svg";
+import HomeSVG from "@/assets/icons/home.svg";
 import HomeActiveSVG from "@/assets/icons/home-active.svg";
-import RevenueSVG from "../../assets/icons/revenue.svg";
+import RevenueSVG from "@/assets/icons/revenue.svg";
 import RevenueActiveSVG from "@/assets/icons/revenue-active.svg";
-import InventorySVG from "../../assets/icons/inventory.svg";
+import InventorySVG from "@/assets/icons/inventory.svg";
 import InventoryActiveSVG from "@/assets/icons/inventory-active.svg";
-import OperationSVG from "../../assets/icons/operation.svg";
+import OperationSVG from "@/assets/icons/operation.svg";
 import OperationActiveSVG from "@/assets/icons/operation-active.svg";
+import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const colors = colorScheme === "dark" ? Colors.dark : Colors.light;
-  const insets = useSafeAreaInsets();
 
   return (
     <>
-      <StatusBarCover insets={insets} />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: colors.primary["600"],
