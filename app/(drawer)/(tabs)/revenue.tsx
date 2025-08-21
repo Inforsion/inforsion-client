@@ -12,6 +12,7 @@ import {
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/src/constants/Colors";
 import CreateRevenue from "@/src/components/revenue/CreateRevenue";
+import ActionCardButton from "@/src/components/common/button/ActionCardButton";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -136,42 +137,25 @@ const RevenueScreen: React.FC = () => {
             </View>
           </View>
           {isCreateRevenueVisible ? (
-            <CreateRevenue />
+            <CreateRevenue toggleCreateRevenue={toggleCreateRevenue} />
           ) : (
             <>
               <View style={styles.actionCards}>
-                <TouchableOpacity
+                <ActionCardButton
                   onPress={toggleCreateRevenue}
-                  style={[
-                    styles.actionCard,
-                    { backgroundColor: Colors.light.primary[300] },
-                  ]}
-                >
-                  <Text style={styles.actionCardTitle}>
-                    매출 작성하러 가기
-                    <Entypo name="chevron-thin-right" size={12} color="white" />
-                  </Text>
-                  <Text style={styles.actionCardSubtitle}>
-                    오늘의 매출을 어디서든 기록하고 수정할 수 있습니다.
-                  </Text>
-                </TouchableOpacity>
-
-                <View
-                  style={[
-                    styles.actionCard,
-                    { backgroundColor: Colors.light.primary[300] },
-                  ]}
-                >
-                  <Text style={styles.actionCardTitle}>
-                    영수증 촬영하러 가기
-                    <Entypo name="chevron-thin-right" size={12} color="white" />
-                  </Text>
-                  <Text style={styles.actionCardSubtitle}>
-                    영수증 촬영으로 간편한 매출/재고 관리를 할 수 있습니다.
-                  </Text>
-                </View>
+                  title={"매출 작성하러가기"}
+                  subTitle={
+                    "오늘의 매출을 어디서든 기록하고 수정할 수 있습니다."
+                  }
+                />
+                <ActionCardButton
+                  onPress={() => {}}
+                  title={"영수증 촬영하러 가기"}
+                  subTitle={
+                    "영수증 촬영으로 간편한 매출/재고 관리를 할 수 있습니다."
+                  }
+                />
               </View>
-
               <View style={styles.chartSection}>
                 <View style={styles.chartHeader}>
                   <Text style={styles.chartTitle}>매출 그래프</Text>
@@ -183,8 +167,9 @@ const RevenueScreen: React.FC = () => {
                     <Text style={styles.chartControlText}>월</Text>
                   </View>
                 </View>
-
-                <View style={styles.chartContainer}></View>
+                <View style={styles.chartContainer}>
+                  <Text>차트</Text>
+                </View>
               </View>
             </>
           )}
@@ -252,24 +237,6 @@ const styles = StyleSheet.create({
     gap: 12,
     marginBottom: 32,
   },
-  actionCard: {
-    flex: 1,
-    padding: 16,
-    borderRadius: 12,
-    minHeight: 80,
-  },
-  actionCardTitle: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: Colors.light.text.inverse,
-    marginBottom: 8,
-  },
-  actionCardSubtitle: {
-    fontSize: 12,
-    color: Colors.light.text.inverse,
-    lineHeight: 16,
-    opacity: 0.9,
-  },
   chartSection: {
     marginBottom: 32,
   },
@@ -306,6 +273,11 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     alignItems: "center",
+    backgroundColor: Colors.light.background.secondary,
+    paddingVertical: 16,
+    height: 200,
+    borderRadius: 12,
+    justifyContent: "center",
   },
   chart: {
     marginVertical: 8,

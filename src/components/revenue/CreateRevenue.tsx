@@ -1,8 +1,13 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Colors } from "@/src/constants/Colors";
 import Row from "@/src/components/revenue/Row";
+import { AntDesign } from "@expo/vector-icons";
 
-const CreateRevenue = () => {
+interface CreateRevenueProps {
+  toggleCreateRevenue: () => void;
+}
+
+const CreateRevenue = ({ toggleCreateRevenue }: CreateRevenueProps) => {
   const NoRevenue = () => {
     return (
       <View>
@@ -20,6 +25,22 @@ const CreateRevenue = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={{ marginBottom: 16 }}
+        onPress={toggleCreateRevenue}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <AntDesign name="arrowleft" size={16} color="black" />
+          <Text
+            style={{
+              textDecorationStyle: "solid",
+              textDecorationLine: "underline",
+            }}
+          >
+            작성 취소
+          </Text>
+        </View>
+      </TouchableOpacity>
       {/* 매출 */}
       <Row label={"매출"} value={302532} isHeader={true}></Row>
       <Row label={"카드"} value={302000}></Row>
