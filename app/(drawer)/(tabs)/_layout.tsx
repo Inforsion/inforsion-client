@@ -17,6 +17,7 @@ import InventoryActiveSVG from "@/assets/icons/inventory-active.svg";
 import OperationSVG from "@/assets/icons/operation.svg";
 import OperationActiveSVG from "@/assets/icons/operation-active.svg";
 import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
+import Icon from "@/src/components/common/Icon";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -50,19 +51,9 @@ export default function TabLayout() {
             title: "대시보드",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={HomeActiveSVG}
-                  />
-                );
+                return <Icon icon={HomeActiveSVG} size={size} />;
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={HomeSVG}
-                  />
-                );
+                return <Icon icon={HomeSVG} size={size} />;
               }
             },
             headerShown: false,
@@ -74,19 +65,9 @@ export default function TabLayout() {
             title: "매출",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={RevenueActiveSVG}
-                  />
-                );
+                return <Icon icon={RevenueActiveSVG} size={size} />;
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={RevenueSVG}
-                  />
-                );
+                return <Icon icon={RevenueSVG} size={size} />;
               }
             },
             headerShown: false,
@@ -98,19 +79,9 @@ export default function TabLayout() {
             title: "재고",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={InventoryActiveSVG}
-                  />
-                );
+                return <Icon icon={InventoryActiveSVG} size={size} />;
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={InventorySVG}
-                  />
-                );
+                return <Icon icon={InventorySVG} size={size} />;
               }
             },
             headerShown: false,
@@ -122,19 +93,9 @@ export default function TabLayout() {
             title: "운영",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={OperationActiveSVG}
-                  />
-                );
+                return <Icon icon={OperationActiveSVG} size={size} />;
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={OperationSVG}
-                  />
-                );
+                return <Icon icon={OperationSVG} size={size} />;
               }
             },
             headerShown: false,
