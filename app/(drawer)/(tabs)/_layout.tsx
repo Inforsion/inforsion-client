@@ -51,9 +51,9 @@ export default function TabLayout() {
             title: "대시보드",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return <Icon icon={HomeActiveSVG} size={size} />;
+                return <Icon icon={HomeActiveSVG} size={size} color={color} />;
               } else {
-                return <Icon icon={HomeSVG} size={size} />;
+                return <Icon icon={HomeSVG} size={size} color={color} />;
               }
             },
             headerShown: false,
@@ -65,9 +65,11 @@ export default function TabLayout() {
             title: "매출",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return <Icon icon={RevenueActiveSVG} size={size} />;
+                return (
+                  <Icon icon={RevenueActiveSVG} size={size} color={color} />
+                );
               } else {
-                return <Icon icon={RevenueSVG} size={size} />;
+                return <Icon icon={RevenueSVG} size={size} color={color} />;
               }
             },
             headerShown: false,
@@ -79,9 +81,11 @@ export default function TabLayout() {
             title: "재고",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return <Icon icon={InventoryActiveSVG} size={size} />;
+                return (
+                  <Icon icon={InventoryActiveSVG} size={size} color={color} />
+                );
               } else {
-                return <Icon icon={InventorySVG} size={size} />;
+                return <Icon icon={InventorySVG} size={size} color={color} />;
               }
             },
             headerShown: false,
@@ -93,9 +97,11 @@ export default function TabLayout() {
             title: "운영",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return <Icon icon={OperationActiveSVG} size={size} />;
+                return (
+                  <Icon icon={OperationActiveSVG} size={size} color={color} />
+                );
               } else {
-                return <Icon icon={OperationSVG} size={size} />;
+                return <Icon icon={OperationSVG} size={size} color={color} />;
               }
             },
             headerShown: false,
