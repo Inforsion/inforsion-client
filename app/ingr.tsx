@@ -51,7 +51,7 @@ const Ingr = () => {
         }
 
         const newItem = {
-            id: (stockList.length + 1).toString().padStart(2, '0'),
+            id: String(Date.now()),
             name,
             price: Number(price),
             stock,
@@ -138,9 +138,10 @@ const Ingr = () => {
                             <FlatList
                                 data={stockList}
                                 keyExtractor={(item) => item.id}
-                                renderItem={({ item }) => (
+                                renderItem={({ item, index }) => (
                                     <StockListItem
                                         item={item}
+                                        num={(index + 1).toString().padStart(2, '0')}
                                         edit={edit}
                                         selected={selected.includes(item.id)}
                                         onToggle={() => toggleSelect(item.id)}

@@ -12,6 +12,7 @@ type StockItem = {
 
 interface Props {
     item: StockItem;
+    num: string;
     edit?: boolean;
     selected?: boolean;
     onToggle?: () => void;
@@ -19,13 +20,14 @@ interface Props {
 
 const StockListItem = ({
                            item,
+                           num,
                            edit = false,
                            selected = false,
                            onToggle,
                        }: Props) => (
     <View style={ingrStyles.rowList}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Text style={ingrStyles.td}>{item.id}</Text>
+            <Text style={ingrStyles.td}>{num}</Text>
 
             {edit && (
                 <TouchableOpacity
