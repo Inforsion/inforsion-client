@@ -105,6 +105,11 @@ const styles = StyleSheet.create({
   changeContainer: {
     marginBottom: 12,
   },
+  changeDate: {
+    fontSize: 12,
+    color: Colors.light.text.secondary,
+    marginTop: 4,
+  },
 });
 
 export default RevenueWidget;
