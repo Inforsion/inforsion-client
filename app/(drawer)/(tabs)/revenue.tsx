@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,11 @@ import {
   SafeAreaView,
   StatusBar,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/src/constants/Colors";
+import CreateRevenue from "@/src/components/revenue/CreateRevenue";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -73,6 +75,12 @@ const RevenueScreen: React.FC = () => {
 
   const isPositiveChange = data.change >= 0;
 
+  const [isCreateRevenueVisible, setIsCreateRevenueVisible] = useState(false);
+
+  const toggleCreateRevenue = () => {
+    setIsCreateRevenueVisible(!isCreateRevenueVisible);
+  };
+
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -127,161 +135,64 @@ const RevenueScreen: React.FC = () => {
               </View>
             </View>
           </View>
-          {/* Action Cards */}
-          <View style={styles.actionCards}>
-            <View
-              style={[
-                styles.actionCard,
-                { backgroundColor: Colors.light.primary[300] },
-              ]}
-            >
-              <Text style={styles.actionCardTitle}>
-                매출 작성하러 가기
-                <Entypo name="chevron-thin-right" size={12} color="white" />
-              </Text>
-              <Text style={styles.actionCardSubtitle}>
-                오늘의 매출을 어디서든 기록하고 수정할 수 있습니다.
-              </Text>
-            </View>
+          {isCreateRevenueVisible ? (
+            <CreateRevenue />
+          ) : (
+            <>
+              <View style={styles.actionCards}>
+                <TouchableOpacity
+                  onPress={toggleCreateRevenue}
+                  style={[
+                    styles.actionCard,
+                    { backgroundColor: Colors.light.primary[300] },
+                  ]}
+                >
+                  <Text style={styles.actionCardTitle}>
+                    매출 작성하러 가기
+                    <Entypo name="chevron-thin-right" size={12} color="white" />
+                  </Text>
+                  <Text style={styles.actionCardSubtitle}>
+                    오늘의 매출을 어디서든 기록하고 수정할 수 있습니다.
+                  </Text>
+                </TouchableOpacity>
 
-            <View
-              style={[
-                styles.actionCard,
-                { backgroundColor: Colors.light.primary[300] },
-              ]}
-            >
-              <Text style={styles.actionCardTitle}>
-                영수증 촬영하러 가기
-                <Entypo name="chevron-thin-right" size={12} color="white" />
-              </Text>
-              <Text style={styles.actionCardSubtitle}>
-                영수증 촬영으로 간편한 매출/재고 관리를 할 수 있습니다.
-              </Text>
-            </View>
-          </View>
-          {/* Chart Section */}
-          <View style={styles.chartSection}>
-            <View style={styles.chartHeader}>
-              <Text style={styles.chartTitle}>매출 그래프</Text>
-              <View style={styles.chartControls}>
-                <Text style={styles.chartControlText}>일</Text>
-                <View style={styles.chartControlActive}>
-                  <Text style={styles.chartControlActiveText}>주</Text>
+                <View
+                  style={[
+                    styles.actionCard,
+                    { backgroundColor: Colors.light.primary[300] },
+                  ]}
+                >
+                  <Text style={styles.actionCardTitle}>
+                    영수증 촬영하러 가기
+                    <Entypo name="chevron-thin-right" size={12} color="white" />
+                  </Text>
+                  <Text style={styles.actionCardSubtitle}>
+                    영수증 촬영으로 간편한 매출/재고 관리를 할 수 있습니다.
+                  </Text>
                 </View>
-                <Text style={styles.chartControlText}>월</Text>
               </View>
-            </View>
 
-            <View style={styles.chartContainer}></View>
-          </View>
-          <CreateRevenue />
+              <View style={styles.chartSection}>
+                <View style={styles.chartHeader}>
+                  <Text style={styles.chartTitle}>매출 그래프</Text>
+                  <View style={styles.chartControls}>
+                    <Text style={styles.chartControlText}>일</Text>
+                    <View style={styles.chartControlActive}>
+                      <Text style={styles.chartControlActiveText}>주</Text>
+                    </View>
+                    <Text style={styles.chartControlText}>월</Text>
+                  </View>
+                </View>
+
+                <View style={styles.chartContainer}></View>
+              </View>
+            </>
+          )}
         </ScrollView>
       </SafeAreaView>
     </>
   );
 };
-
-const CreateRevenue = () => {
-  const NoRevenue = () => {
-    return (
-      <View>
-        <Text
-          style={{
-            textDecorationStyle: "solid",
-            textDecorationLine: "underline",
-          }}
-        >
-          입력하기
-        </Text>
-      </View>
-    );
-  };
-  interface RowProps {
-    label: string;
-    value: number;
-  }
-
-  const Row = ({ label, value }: RowProps) => {
-    const isHeader = label === "매출" || label === "원가" || label === "세금";
-    const labelStyle = isHeader
-      ? createRevenueStyle.labelHead
-      : createRevenueStyle.label;
-    const valueStyle = isHeader
-      ? createRevenueStyle.valueHead
-      : createRevenueStyle.value;
-    const rowStyle = isHeader
-      ? createRevenueStyle.rowHead
-      : createRevenueStyle.row;
-    return (
-      <View style={rowStyle}>
-        <Text style={labelStyle}>{label}</Text>
-        <Text style={valueStyle}>{value.toLocaleString()}원</Text>
-      </View>
-    );
-  };
-  return (
-    <View style={createRevenueStyle.container}>
-      <Row label={"매출"} value={302532}></Row>
-      <Row label={"카드"} value={302000}></Row>
-      <Row label={"현금"} value={500}></Row>
-
-      <View style={createRevenueStyle.row}>
-        <Text style={createRevenueStyle.label}>기타</Text>
-        <NoRevenue />
-      </View>
-      {/*  원가*/}
-      <Row label={"원가"} value={302532}></Row>
-      <Row label={"재료비"} value={302000}></Row>
-      <Row label={"고정비"} value={302000}></Row>
-
-      {/*  세금*/}
-      <Row label={"세금"} value={30253}></Row>
-      <Row label={"부가세"} value={30253}></Row>
-    </View>
-  );
-};
-
-const createRevenueStyle = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    padding: 16,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 12,
-  },
-  rowHead: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.light.border.primary,
-  },
-  label: {
-    fontSize: 16,
-    color: Colors.light.text.secondary,
-    fontWeight: "600",
-  },
-  labelHead: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: Colors.light.text.primary,
-  },
-  value: {
-    fontSize: 16,
-    color: Colors.light.text.secondary,
-    fontWeight: "600",
-  },
-  valueHead: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: Colors.light.text.primary,
-  },
-});
 
 const styles = StyleSheet.create({
   container: {
@@ -291,7 +202,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 20,
+    paddingVertical: 32,
   },
   salesOverviewContainer: {
     borderRadius: 12,
@@ -304,7 +215,7 @@ const styles = StyleSheet.create({
   salesOverview: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginTop: 16,
   },
   salesItem: {
     flex: 1,
