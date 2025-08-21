@@ -26,9 +26,7 @@ const StockListItem = ({
                            onToggle,
                        }: Props) => (
     <View style={ingrStyles.rowList}>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Text style={ingrStyles.td}>{num}</Text>
-
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center'}}>
             {edit && (
                 <TouchableOpacity
                     onPress={onToggle}
@@ -41,6 +39,7 @@ const StockListItem = ({
                     {selected && <Text style={ingrStyles.checkboxMark}>✓</Text>}
                 </TouchableOpacity>
             )}
+            <Text style={ingrStyles.td}>{num}</Text>
         </View>
         <View style={ingrStyles.image} />
         <Text style={ingrStyles.td}>{item.name}</Text>
