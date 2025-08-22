@@ -11,7 +11,12 @@ import StepIndicator from "@/src/components/Ingr/StepIndicator";
 import InputField from "@/src/components/Ingr/InputField";
 import React, { useState } from "react";
 import CameraImg from "@/assets/images/Ingr/camera.png";
-import { getStoreById } from "@/api/store/storeAPI";
+import {
+  createStore,
+  getAllStores,
+  getStoreById,
+} from "@/src/api/store/storeAPI";
+import { PostStorePayload, Store } from "@/src/types/Store";
 
 const CreateStoreScreen = () => {
   const [storeForm, setStoreForm] = useState({
@@ -30,9 +35,19 @@ const CreateStoreScreen = () => {
       return;
     }
 
-    const data = await getStoreById(1);
+    const postData: PostStorePayload = {
+      name: storeForm.name,
+      description: storeForm.description,
+      thumbnail: storeForm.thumbnail,
+      location: "청당동",
+      phoneNumber: "01090504371",
+      email: "starbucks@gmail.com",
+      businessRegistrationNumber: "1234",
+      openingHours: "10",
+    };
+
+    const data = await createStore(postData, 1);
     console.log("서버 응답:", data);
-    // 여기에 가게 생성 로직 추가
     console.log("가게 정보:", storeForm);
   };
 
