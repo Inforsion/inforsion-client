@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View, Dimensions, Text } from "react-native";
+import { ScrollView, View, Dimensions } from "react-native";
 import { ThemedView } from "@/src/components/ThemedView";
 import { Image } from "expo-image";
 import LogoText from "../assets/images/inforsion-logo-text.png";
