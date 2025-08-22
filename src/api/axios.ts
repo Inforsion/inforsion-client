@@ -5,6 +5,9 @@ const axiosInstance = axios.create({
   timeout: 10000,
 });
 
+// T는 응답으로 받을 데이터의 타입 객체
+// D는 요청으로 보낼 데이터의 타입 객체
+
 export const Get = async <T>(
   url: string,
   config?: AxiosRequestConfig,
