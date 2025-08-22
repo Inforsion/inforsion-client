@@ -56,11 +56,9 @@ const Stores = () => {
   };
 
   const onClick = () => {
-    console.log("Store clicked");
     router.navigate("/dashboard");
   };
   const onCreateStore = () => {
-    console.log("Create Store clicked");
     router.navigate("/create-store");
   };
 
