@@ -29,4 +29,5 @@ export type PostStorePayload = Omit<
   | "originalFileName"
   | "s3Key"
   | "hasThumbnail"
+  | "isActive"
 >;

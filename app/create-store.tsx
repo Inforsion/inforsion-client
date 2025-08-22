@@ -11,11 +11,7 @@ import StepIndicator from "@/src/components/Ingr/StepIndicator";
 import InputField from "@/src/components/Ingr/InputField";
 import React, { useState } from "react";
 import CameraImg from "@/assets/images/Ingr/camera.png";
-import {
-  createStore,
-  getAllStores,
-  getStoreById,
-} from "@/src/api/store/storeAPI";
+import { createStore } from "@/src/api/store/storeAPI";
 import { PostStorePayload, Store } from "@/src/types/Store";
 
 const CreateStoreScreen = () => {
