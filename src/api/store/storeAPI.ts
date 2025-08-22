@@ -1,9 +1,9 @@
 import { Get, Post } from "@/src/api/axios";
-import { PostStorePayload } from "@/src/types/Store";
+import { PostStorePayload, Store } from "@/src/types/Store";
 
 export const getAllStores = async (userId: number) => {
   try {
-    const response = await Get(`/api/v1/stores/user/${userId}`);
+    const response = await Get<Store[]>(`/api/v1/stores/user/${userId}`);
     return response.data;
   } catch (error) {
     console.error("전체 가게 불러오기 실패", error);

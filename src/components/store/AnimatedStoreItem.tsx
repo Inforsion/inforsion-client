@@ -63,8 +63,8 @@ const AnimatedStoreItem = ({
       <Pressable onPress={onClickStore}>
         <Animated.View style={[styles.storeItem, animatedStyle]}>
           <Image
-            source={store.thumbnailURL}
-            alt={store.storeTitle || "가게 이미지"}
+            source={store.thumbnail}
+            alt={store.name || "가게 이미지"}
             style={styles.storeImage}
             contentFit="cover"
           />
@@ -83,7 +83,7 @@ const AnimatedStoreItem = ({
           marginTop: 10,
         }}
       >
-        {store.storeTitle}
+        {store.name}
       </Text>
     </View>
   );
