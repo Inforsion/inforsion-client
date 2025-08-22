@@ -1,4 +1,4 @@
-import { ScrollView, View, Dimensions } from "react-native";
+import { ScrollView, View, Dimensions, Text } from "react-native";
 import { ThemedView } from "@/src/components/ThemedView";
 import { Image } from "expo-image";
 import LogoText from "../assets/images/inforsion-logo-text.png";
@@ -29,6 +29,7 @@ const Stores = () => {
     mockStores as Store[],
   );
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -72,6 +73,9 @@ const Stores = () => {
       }
     } catch (e) {
       console.error("유저의 가게를 불러오는데 실패:", e);
+      setError(
+        "⚠ 가게를 불러오는 데 실패했습니다. 인터넷 연결 상태를 확인해주세요.",
+      );
     } finally {
       setLoading(false);
     }
@@ -125,6 +129,9 @@ const Stores = () => {
             />
           )}
         </AnimatedScrollView>
+        <View style={styles.alertContainer}>
+          <Text style={styles.errorText}>{error ? error : ""}</Text>
+        </View>
         <Image source={LogoText} style={styles.logo} />
       </View>
     </ThemedView>
