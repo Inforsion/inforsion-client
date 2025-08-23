@@ -12,6 +12,7 @@ import { ingrStyles } from '@/src/styles/IngrStyle';
 import StepIndicator from '@/src/components/Ingr/StepIndicator';
 import InputField from '@/src/components/Ingr/InputField';
 import StockListItem from '@/src/components/Ingr/StockListItem';
+import * as ImagePicker from 'expo-image-picker';
 
 const CameraImg = require('@/assets/images/Ingr/camera.png');
 
@@ -21,6 +22,7 @@ type StockItem = {
     price: number;
     stock: string;
     quantity: number;
+    imageUri?: string | null;
 };
 
 const Ingr = () => {
@@ -28,9 +30,30 @@ const Ingr = () => {
     const [price, setPrice] = useState('');
     const [stock, setStock] = useState('');
     const [quantity, setQuantity] = useState('');
+    const [photo, setPhoto] = useState<string | null>(null);
     const [stockList, setStockList] = useState<StockItem[]>([]);
     const [edit, setEdit] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
+
+    const handlePickImage = async () => {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+            Alert.alert('사진 라이브러리 접근 권한이 필요합니다.');
+            return;
+        }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            quality: 0.9,
+        });
+
+        if (!result.canceled && result.assets && result.assets.length > 0) {
+            const uri = result.assets[0].uri;
+            setPhoto(uri);
+        }
+
+    };
 
     const toggleSelect = (id: string) => {
         setSelected(prev =>
@@ -56,6 +79,7 @@ const Ingr = () => {
             price: Number(price),
             stock,
             quantity: Number(quantity),
+            imageUri: photo || null,
         };
 
         setStockList([...stockList, newItem]);
@@ -64,6 +88,7 @@ const Ingr = () => {
         setPrice('');
         setStock('');
         setQuantity('');
+        setPhoto(null);
     };
     return (
         <View style={ingrStyles.container}>
@@ -71,12 +96,22 @@ const Ingr = () => {
                 <StepIndicator />
 
                 <View style={ingrStyles.card}>
-                    <View style={ingrStyles.photoUpload}>
+                    <TouchableOpacity
+                        style={ingrStyles.photoUpload}
+                        activeOpacity={0.8}
+                        onPress={handlePickImage}
+                    >
                         <View style={ingrStyles.photoIconCircle}>
-                            <Image source={CameraImg} />
-                            <Text style={ingrStyles.photoText}>사진을 등록해주세요</Text>
+                            {photo ? (
+                                <Image source={{ uri: photo }} style={ingrStyles.photoImage} />
+                            ) : (
+                                <>
+                                    <Image source={CameraImg} />
+                                    <Text style={ingrStyles.photoText}>사진을 등록해주세요</Text>
+                                </>
+                            )}
                         </View>
-                    </View>
+                    </TouchableOpacity>
 
                     <InputField
                         label="재료명"
