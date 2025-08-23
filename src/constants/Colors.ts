@@ -34,7 +34,7 @@ export const Colors = {
     // Text Colors
     text: {
       primary: "#3D3D3D", // Font Color (dark gray)
-      secondary: "#C5C6CC", // Light gray for secondary text
+      secondary: "#BCB9B9", // Light gray for secondary text
       inverse: "#FFFFFF", // White text for dark backgrounds
       weak: "#343434",
     },
@@ -44,6 +44,10 @@ export const Colors = {
       primary: "#FFFFFF",
       secondary: "#F8F9FE",
       tertiary: "#E8E9F1",
+    },
+
+    border: {
+      primary: "#BDBDBD", // Light gray for borders
     },
 
     // Legacy support (기존 컴포넌트 호환성)
@@ -92,6 +96,10 @@ export const Colors = {
       primary: "#151718",
       secondary: "#1E1E1E",
       tertiary: "#2A2A2A",
+    },
+
+    border: {
+      primary: "#BDBDBD", // Light gray for borders
     },
 
     // Legacy support

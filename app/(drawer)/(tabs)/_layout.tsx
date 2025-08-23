@@ -17,6 +17,7 @@ import InventoryActiveSVG from "@/assets/icons/inventory-active.svg";
 import OperationSVG from "@/assets/icons/operation.svg";
 import OperationActiveSVG from "@/assets/icons/operation-active.svg";
 import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
+import Icon from "@/src/components/common/Icon";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -50,19 +51,9 @@ export default function TabLayout() {
             title: "대시보드",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={HomeActiveSVG}
-                  />
-                );
+                return <Icon icon={HomeActiveSVG} size={size} color={color} />;
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={HomeSVG}
-                  />
-                );
+                return <Icon icon={HomeSVG} size={size} color={color} />;
               }
             },
             headerShown: false,
@@ -75,18 +66,10 @@ export default function TabLayout() {
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={RevenueActiveSVG}
-                  />
+                  <Icon icon={RevenueActiveSVG} size={size} color={color} />
                 );
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={RevenueSVG}
-                  />
-                );
+                return <Icon icon={RevenueSVG} size={size} color={color} />;
               }
             },
             headerShown: false,
@@ -99,18 +82,10 @@ export default function TabLayout() {
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={InventoryActiveSVG}
-                  />
+                  <Icon icon={InventoryActiveSVG} size={size} color={color} />
                 );
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={InventorySVG}
-                  />
-                );
+                return <Icon icon={InventorySVG} size={size} color={color} />;
               }
             },
             headerShown: false,
@@ -123,18 +98,10 @@ export default function TabLayout() {
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={OperationActiveSVG}
-                  />
+                  <Icon icon={OperationActiveSVG} size={size} color={color} />
                 );
               } else {
-                return (
-                  <Image
-                    style={{ width: size, height: size }}
-                    source={OperationSVG}
-                  />
-                );
+                return <Icon icon={OperationSVG} size={size} color={color} />;
               }
             },
             headerShown: false,

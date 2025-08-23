@@ -5,7 +5,10 @@ import { Colors } from "@/src/constants/Colors";
 import Sidebar from "@/src/components/common/Sidebar";
 import InforsionHeader from "@/src/components/ui/InforsionHeader";
 import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 export default function DrawerLayout() {
   const colorScheme = useColorScheme();
