@@ -1,8 +1,8 @@
-import { ScrollView, StyleSheet, View, Dimensions, Text } from "react-native";
+import { ScrollView, View, Dimensions, Text } from "react-native";
 import { ThemedView } from "@/src/components/ThemedView";
 import { Image } from "expo-image";
 import LogoText from "../assets/images/inforsion-logo-text.png";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Store } from "@/src/types/Store";
 import Animated, {
   useSharedValue,
@@ -14,6 +14,7 @@ import storeStyles from "@/src/styles/StoreStyle";
 import AnimatedStoreItem from "@/src/components/store/AnimatedStoreItem";
 import AnimatedCreateButton from "@/src/components/store/AnimatedCreateButton";
 import { useRouter } from "expo-router";
+import { getAllStores } from "@/api/store/storeAPI";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const ITEM_WIDTH = 150;
@@ -24,7 +25,12 @@ const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 const styles = storeStyles(SCREEN_WIDTH);
 
 const Stores = () => {
-  const [ownedStores, setOwnedStores] = useState<Store[]>(mockStores);
+  const [ownedStores, setOwnedStores] = useState<Store[]>(
+    mockStores as Store[],
+  );
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
   const router = useRouter();
 
   const scrollX = useSharedValue(0);
@@ -50,9 +56,32 @@ const Stores = () => {
   };
 
   const onClick = () => {
-    console.log("Store clicked");
     router.navigate("/dashboard");
   };
+  const onCreateStore = () => {
+    router.navigate("/create-store");
+  };
+
+  const getStores = async () => {
+    setLoading(true);
+    try {
+      const data = await getAllStores(1);
+      if (data) {
+        setOwnedStores((prev) => [...data, ...prev]);
+      }
+    } catch (e) {
+      console.error("유저의 가게를 불러오는데 실패:", e);
+      setError(
+        "⚠ 가게를 불러오는 데 실패했습니다. 인터넷 연결 상태를 확인해주세요.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getStores();
+  }, []);
 
   return (
     <ThemedView style={styles.container}>
@@ -86,12 +115,21 @@ const Stores = () => {
                 index={ownedStores.length}
                 scrollX={scrollX}
                 styles={styles}
+                onPress={onCreateStore}
               />
             </>
           ) : (
-            <AnimatedCreateButton index={0} scrollX={scrollX} styles={styles} />
+            <AnimatedCreateButton
+              index={0}
+              scrollX={scrollX}
+              styles={styles}
+              onPress={onCreateStore}
+            />
           )}
         </AnimatedScrollView>
+        <View style={styles.alertContainer}>
+          <Text style={styles.errorText}>{error ? error : ""}</Text>
+        </View>
         <Image source={LogoText} style={styles.logo} />
       </View>
     </ThemedView>

@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
+import { Colors } from "@/src/constants/Colors";
 
 const ITEM_WIDTH = 150;
 const ITEM_SPACING = 10;
 const TOTAL_ITEM_WIDTH = ITEM_WIDTH + ITEM_SPACING * 2;
 
-const storeStyles = (SCREEN_WIDTH: number) =>
-  StyleSheet.create({
+const storeStyles = (SCREEN_WIDTH: number) => {
+  return StyleSheet.create({
     container: {
       flex: 1,
     },
@@ -56,6 +57,27 @@ const storeStyles = (SCREEN_WIDTH: number) =>
       height: 24,
       bottom: 40,
     },
+    alertContainer: {
+      position: "absolute",
+      bottom: 100,
+      left: 0,
+      right: 0,
+      paddingHorizontal: 20,
+      alignItems: "center",
+    },
+    alertText: {
+      color: "#fff",
+      fontSize: 16,
+      textAlign: "center",
+    },
+    errorText: {
+      color: Colors.light.error,
+      fontSize: 14,
+      textAlign: "center",
+      flexWrap: "wrap",
+      maxWidth: "55%",
+    },
   });
+};
 
 export default storeStyles;
