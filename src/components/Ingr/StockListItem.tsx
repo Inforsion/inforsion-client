@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity,} from 'react-native';
+import { View, Text, TouchableOpacity, Image} from 'react-native';
 import { ingrStyles } from '@/src/styles/IngrStyle';
 
 type StockItem = {
@@ -8,6 +8,7 @@ type StockItem = {
     price: number | string;
     stock: string;
     quantity: number | string;
+    imageUri?: string | null;
 };
 
 interface Props {
@@ -41,7 +42,11 @@ const StockListItem = ({
             )}
             <Text style={ingrStyles.td}>{num}</Text>
         </View>
-        <View style={ingrStyles.image} />
+        {item.imageUri ? (
+            <Image source={{ uri: item.imageUri }} style={ingrStyles.image} />
+        ) : (
+            <View style={ingrStyles.image} />
+        )}
         <Text style={ingrStyles.td}>{item.name}</Text>
         <Text style={ingrStyles.td}>{item.price}</Text>
         <View style={ingrStyles.stockCell}>
