@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Colors } from "@/src/constants/Colors";
+import WebView from "react-native-webview";
 
 const RevenueChartSection = () => {
   return (
@@ -18,6 +19,13 @@ const RevenueChartSection = () => {
       <View style={styles.chartContainer}>
         <Text>차트</Text>
       </View>
+      <WebView
+        source={{ uri: "https://shipfriend.dev" }}
+        style={{ height: 300, width: "100%" }}
+        scalesPageToFit
+        javaScriptEnabled
+        domStorageEnabled
+      />
     </View>
   );
 };
