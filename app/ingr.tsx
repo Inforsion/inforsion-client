@@ -12,7 +12,7 @@ import { ingrStyles } from '@/src/styles/IngrStyle';
 import StepIndicator from '@/src/components/Ingr/StepIndicator';
 import InputField from '@/src/components/Ingr/InputField';
 import StockListItem from '@/src/components/Ingr/StockListItem';
-import * as ImagePicker from 'expo-image-picker';
+import ImgUpload from "@/src/components/common/ImgUpload";
 
 const CameraImg = require('@/assets/images/Ingr/camera.png');
 
@@ -35,25 +35,6 @@ const Ingr = () => {
     const [edit, setEdit] = useState(false);
     const [selected, setSelected] = useState<string[]>([]);
 
-    const handlePickImage = async () => {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-            Alert.alert('사진 라이브러리 접근 권한이 필요합니다.');
-            return;
-        }
-
-        const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ['images'],
-            allowsEditing: true,
-            quality: 0.9,
-        });
-
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            const uri = result.assets[0].uri;
-            setPhoto(uri);
-        }
-
-    };
 
     const toggleSelect = (id: string) => {
         setSelected(prev =>
@@ -96,22 +77,7 @@ const Ingr = () => {
                 <StepIndicator currentStep={1}/>
 
                 <View style={ingrStyles.card}>
-                    <TouchableOpacity
-                        style={ingrStyles.photoUpload}
-                        activeOpacity={0.8}
-                        onPress={handlePickImage}
-                    >
-                        <View style={ingrStyles.photoIconCircle}>
-                            {photo ? (
-                                <Image source={{ uri: photo }} style={ingrStyles.photoImage} />
-                            ) : (
-                                <>
-                                    <Image source={CameraImg} />
-                                    <Text style={ingrStyles.photoText}>사진을 등록해주세요</Text>
-                                </>
-                            )}
-                        </View>
-                    </TouchableOpacity>
+                    <ImgUpload value={photo} onChange={setPhoto} />
 
                     <InputField
                         label="재료명"
