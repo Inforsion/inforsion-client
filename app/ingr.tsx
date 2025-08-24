@@ -93,7 +93,7 @@ const Ingr = () => {
     return (
         <View style={ingrStyles.container}>
             <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
-                <StepIndicator />
+                <StepIndicator currentStep={1}/>
 
                 <View style={ingrStyles.card}>
                     <TouchableOpacity
