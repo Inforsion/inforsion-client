@@ -1,13 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import React from "react";
 import { Colors } from "@/src/constants/Colors";
 import WebView from "react-native-webview";
+import Icon from "../common/Icon";
+import RevenueChart from "@/assets/icons/revenue-chart.svg";
 
 const RevenueChartSection = () => {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? "light"];
   return (
     <View style={styles.chartSection}>
       <View style={styles.chartHeader}>
-        <Text style={styles.chartTitle}>매출 그래프</Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+          <Icon icon={RevenueChart} size={12} color={colors.primary["600"]} />
+          <Text style={styles.chartTitle}>매출</Text>
+        </View>
         <View style={styles.chartControls}>
           <Text style={styles.chartControlText}>일</Text>
           <View style={styles.chartControlActive}>
@@ -17,22 +24,23 @@ const RevenueChartSection = () => {
         </View>
       </View>
       <View style={styles.chartContainer}>
-        <Text>차트</Text>
+        <WebView
+          source={{ uri: `${process.env.EXPO_PUBLIC_WEBVIEW_URL}/charts` }}
+          style={{ height: 300, width: "100%" }}
+          scalesPageToFit
+          javaScriptEnabled
+          domStorageEnabled
+          scrollEnabled={false}
+        />
       </View>
-      <WebView
-        source={{ uri: "https://shipfriend.dev" }}
-        style={{ height: 300, width: "100%" }}
-        scalesPageToFit
-        javaScriptEnabled
-        domStorageEnabled
-      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   chartSection: {
-    marginBottom: 32,
+    marginBottom: 16,
+    marginTop: 16,
   },
   chartHeader: {
     flexDirection: "row",
@@ -44,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: Colors.light.text.primary,
+    gap: 4,
   },
   chartControls: {
     flexDirection: "row",
@@ -66,12 +75,15 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   chartContainer: {
-    alignItems: "center",
     backgroundColor: Colors.light.background.secondary,
-    paddingVertical: 16,
     height: 200,
     borderRadius: 12,
-    justifyContent: "center",
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   chart: {
     marginVertical: 8,

@@ -8,7 +8,6 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import RevenueChart from "@/assets/icons/revenue-chart.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import PeriodSelector from "@/src/components/dashboard/PeriodSelector";
@@ -17,6 +16,7 @@ import { AntDesign } from "@expo/vector-icons";
 import InventoryAnalysis from "@/src/components/dashboard/analysis/InventoryAnalysis";
 import { StatusBar } from "expo-status-bar";
 import Icon from "@/src/components/common/Icon";
+import RevenueChartSection from "@/src/components/revenue/RevenueChartSection";
 
 const DashboardScreen = () => {
   const colorScheme = useColorScheme();
@@ -55,35 +55,10 @@ const DashboardScreen = () => {
                 {"2025.05.12"} 매출현황 입니다.
               </Text>
             </View>
+            <RevenueChartSection />
 
             {/* 매출 그래프 섹션*/}
             <View style={styles.revenueChartContainer}>
-              <View style={styles.revenueChartHeader}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Icon
-                    icon={RevenueChart}
-                    size={12}
-                    style={{ marginRight: 4 }}
-                    color={colors.primary["600"]}
-                  />
-                  <Text style={{ fontWeight: 600 }}>매출</Text>
-                </View>
-                <PeriodSelector
-                  selectedPeriod={selectedPeriod}
-                  onPeriodChange={handlePeriodChange}
-                />
-              </View>
-
-              <View style={styles.revenueChart}>
-                <Text>{selectedPeriod} 단위 매출 그래프가 들어갈 예정.</Text>
-              </View>
-
               <Button
                 variant={"primary"}
                 title="영수증으로 매출 입력하기"
