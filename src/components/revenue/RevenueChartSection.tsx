@@ -1,13 +1,36 @@
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { Colors } from "@/src/constants/Colors";
 import WebView from "react-native-webview";
 import Icon from "../common/Icon";
 import RevenueChart from "@/assets/icons/revenue-chart.svg";
+import ChartWebView from "@/src/components/webview/ChartWebView";
 
 const RevenueChartSection = () => {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
+
+  const [selectedTimeframe, setSelectedTimeframe] = useState<
+    "일" | "주" | "월"
+  >("주");
+  const webviewBaseURL = `${process.env.EXPO_PUBLIC_WEBVIEW_URL}/charts`;
+
+  const [chartURL, setChartURL] = useState(webviewBaseURL);
+
+  const toggleTimeframe = (timeframe: "일" | "주" | "월") => {
+    setSelectedTimeframe(timeframe);
+  };
+
+  useEffect(() => {
+    setChartURL(`${webviewBaseURL}?timeframe=${selectedTimeframe}`);
+  }, [selectedTimeframe]);
+
   return (
     <View style={styles.chartSection}>
       <View style={styles.chartHeader}>
@@ -16,23 +39,63 @@ const RevenueChartSection = () => {
           <Text style={styles.chartTitle}>매출</Text>
         </View>
         <View style={styles.chartControls}>
-          <Text style={styles.chartControlText}>일</Text>
-          <View style={styles.chartControlActive}>
-            <Text style={styles.chartControlActiveText}>주</Text>
-          </View>
-          <Text style={styles.chartControlText}>월</Text>
+          <TouchableOpacity
+            onPress={() => toggleTimeframe("일")}
+            style={
+              selectedTimeframe === "일"
+                ? styles.chartControlActive
+                : styles.chartControl
+            }
+          >
+            <Text
+              style={
+                selectedTimeframe === "일"
+                  ? styles.chartControlActiveText
+                  : styles.chartControlText
+              }
+            >
+              일
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => toggleTimeframe("주")}
+            style={
+              selectedTimeframe === "주"
+                ? styles.chartControlActive
+                : styles.chartControl
+            }
+          >
+            <Text
+              style={
+                selectedTimeframe === "주"
+                  ? styles.chartControlActiveText
+                  : styles.chartControlText
+              }
+            >
+              주
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => toggleTimeframe("월")}
+            style={
+              selectedTimeframe === "월"
+                ? styles.chartControlActive
+                : styles.chartControl
+            }
+          >
+            <Text
+              style={
+                selectedTimeframe === "월"
+                  ? styles.chartControlActiveText
+                  : styles.chartControlText
+              }
+            >
+              월
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.chartContainer}>
-        <WebView
-          source={{ uri: `${process.env.EXPO_PUBLIC_WEBVIEW_URL}/charts` }}
-          style={{ height: 300, width: "100%" }}
-          scalesPageToFit
-          javaScriptEnabled
-          domStorageEnabled
-          scrollEnabled={false}
-        />
-      </View>
+      <ChartWebView url={chartURL} />
     </View>
   );
 };
@@ -62,6 +125,11 @@ const styles = StyleSheet.create({
   chartControlText: {
     fontSize: 14,
     color: Colors.light.text.secondary,
+  },
+  chartControl: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 6,
   },
   chartControlActive: {
     backgroundColor: Colors.light.primary[500],
