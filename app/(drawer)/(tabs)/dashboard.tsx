@@ -79,8 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light.background.primary,
-    padding: 10,
-    paddingVertical: 20,
+    padding: 16,
   },
   text: {
     fontFamily: "Pretendard, Inter",
