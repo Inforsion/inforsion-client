@@ -89,6 +89,7 @@ export const Colors = {
       primary: "#FFFFFF",
       secondary: "#8A8A8A",
       inverse: "#151718",
+      weak: "#343434",
     },
 
     // Background Colors
