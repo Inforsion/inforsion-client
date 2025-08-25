@@ -26,7 +26,7 @@ const RevenueChartSection = () => {
     setSelectedTimeframe(timeframe);
   };
 
-  // todo: 날짜 데이터 타입 제대로
+  // todo: 날짜 데이터 타입 제대로, 실제 데이터로 교체 예정
   const props: DailyData = {
     data: [
       { date: "2024-08-19", revenue: 25 },
@@ -43,7 +43,6 @@ const RevenueChartSection = () => {
     const url =
       webviewBaseURL +
       `/charts?timeframe=${selectedTimeframe}&data=${decodeURIComponent(JSON.stringify(props.data))}`;
-    console.log(url);
     setChartURL(url);
   }, [selectedTimeframe]);
 
