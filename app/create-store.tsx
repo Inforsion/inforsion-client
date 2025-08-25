@@ -1,39 +1,40 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from "react-native";
 import StepIndicator from "@/src/components/Ingr/StepIndicator";
-import InputField from "@/src/components/Ingr/InputField";
 import React, { useState } from "react";
-import CameraImg from "@/assets/images/Ingr/camera.png";
 import { createStore } from "@/src/api/store/storeAPI";
-import { PostStorePayload, Store } from "@/src/types/Store";
+import { PostStorePayload } from "@/src/types/Store";
+import { Colors } from "@/src/constants/Colors";
+import useStep from "@/hooks/useStep";
+import Step1 from "@/src/components/store/create/Step1";
+import Step2 from "@/src/components/store/create/Step2";
+import Step3 from "@/src/components/store/create/Step3";
 
 const CreateStoreScreen = () => {
+  const colorScheme = useColorScheme();
+  const colors = colorScheme === "light" ? Colors["light"] : Colors["dark"];
   const [storeForm, setStoreForm] = useState({
     name: "",
-    description: "",
+    location: "",
     thumbnail: "",
+    password: "",
   });
 
-  const handleChange = (field: string, value: string) => {
-    setStoreForm((prev) => ({ ...prev, [field]: value }));
-  };
-
   const handleSubmit = async () => {
-    if (!storeForm.name || !storeForm.description) {
-      alert("가게 이름과 설명을 입력해주세요.");
+    if (!storeForm.name || !storeForm.location) {
+      alert("가게 이름과 위치를 입력해주세요.");
       return;
     }
 
     const postData: PostStorePayload = {
       name: storeForm.name,
-      description: storeForm.description,
+      description: "",
       thumbnail: storeForm.thumbnail,
       location: "청당동",
       phoneNumber: "01090504371",
@@ -46,38 +47,59 @@ const CreateStoreScreen = () => {
     console.log("서버 응답:", data);
     console.log("가게 정보:", storeForm);
   };
+  const handleChange = (field: string, value: string) => {
+    setStoreForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const steps = [
+    {
+      title: "가게 생성",
+      description: "운영할 가게를 추가하여 관리해보세요",
+      content: <Step1 storeForm={storeForm} handleChange={handleChange} />,
+      validate: () => !!storeForm.name && !!storeForm.location,
+    },
+    {
+      title: "비밀번호 설정",
+      description: "새로운 가게 비밀번호 (5자리)를 입력해주세요",
+      content: <Step2 storeForm={storeForm} handleChange={handleChange} />,
+      validate: () => storeForm.password.length === 5,
+    },
+    {
+      title: "가게 정보 확인",
+      description: "가게 정보를 한 번 더 확인해주세요.",
+      content: <Step3 storeForm={storeForm} />,
+    },
+  ];
+
+  const { currentStep, goToNextStep } = useStep(steps, handleSubmit);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
-        <StepIndicator />
+      <View style={{ flex: 1 }}>
+        <StepIndicator maxSteps={steps.length} currentStep={currentStep} />
 
-        <View style={styles.card}>
-          <View style={styles.photoUpload}>
-            <View style={styles.photoIconCircle}>
-              <Image source={CameraImg} />
-              <Text style={styles.photoText}>사진을 등록해주세요</Text>
-            </View>
-          </View>
-
-          <InputField
-            label="가게 이름"
-            placeholder="가게 이름을 입력해주세요."
-            value={storeForm.name}
-            onChangeText={(e) => handleChange("name", e)}
-          />
-          <InputField
-            label="가게 설명"
-            placeholder="가게 설명을 입력해주세요."
-            value={storeForm.description}
-            onChangeText={(e) => handleChange("description", e)}
-          />
+        <View style={styles.storeCreateHeader}>
+          <Text style={styles.storeCreateTitle}>
+            {steps[currentStep].title || "가게 생성"}
+          </Text>
+          <Text
+            style={[styles.storeCreateDescription, { color: colors.text.weak }]}
+          >
+            {steps[currentStep].description ||
+              "운영할 가게를 추가하여 관리해보세요"}
+          </Text>
         </View>
 
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitText}>저장</Text>
-        </TouchableOpacity>
-      </ScrollView>
+        <View style={styles.storeCreateContent}>
+          {steps[currentStep]?.content}
+        </View>
+      </View>
+
+      <TouchableOpacity style={styles.submitButton} onPress={goToNextStep}>
+        <Text style={styles.submitText}>
+          {currentStep === steps.length - 1 ? "가게 생성하기" : "다음"}
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -87,7 +109,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingTop: 16,
   },
   stepWrapper: {
     flexDirection: "row",
@@ -127,6 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F2F2F2",
     justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: "auto",
   },
   photoText: {
     marginTop: 10,
@@ -229,6 +252,30 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 10,
     color: "#888",
+  },
+  fieldContainer: { gap: 8, marginTop: 8, marginBottom: 16 },
+  storeField: {
+    width: "100%",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#D1D1D1",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    gap: 8,
+  },
+  storeFieldLabel: {
+    fontWeight: "600",
+  },
+  storeCreateHeader: {
+    marginBottom: 20,
+  },
+  storeCreateTitle: { fontWeight: "700", marginBottom: 4, fontSize: 20 },
+  storeCreateDescription: {
+    fontWeight: "400",
+    fontSize: 12,
+  },
+  storeCreateContent: {
+    flex: 1,
   },
 });
 
