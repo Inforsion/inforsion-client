@@ -7,28 +7,44 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "@/src/constants/Colors";
-import WebView from "react-native-webview";
 import Icon from "../common/Icon";
 import RevenueChart from "@/assets/icons/revenue-chart.svg";
 import ChartWebView from "@/src/components/webview/ChartWebView";
+import { DailyData } from "@/src/types/Revenue";
+
+type PeriodType = "일" | "주" | "월";
 
 const RevenueChartSection = () => {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
 
-  const [selectedTimeframe, setSelectedTimeframe] = useState<
-    "일" | "주" | "월"
-  >("주");
-  const webviewBaseURL = `${process.env.EXPO_PUBLIC_WEBVIEW_URL}/charts`;
-
+  const [selectedTimeframe, setSelectedTimeframe] = useState<PeriodType>("주");
+  const webviewBaseURL = `${process.env.EXPO_PUBLIC_WEBVIEW_URL}`;
   const [chartURL, setChartURL] = useState(webviewBaseURL);
 
   const toggleTimeframe = (timeframe: "일" | "주" | "월") => {
     setSelectedTimeframe(timeframe);
   };
 
+  // todo: 날짜 데이터 타입 제대로
+  const props: DailyData = {
+    data: [
+      { date: "2024-08-19", revenue: 25 },
+      { date: "2024-08-20", revenue: 30 },
+      { date: "2024-08-21", revenue: 28 },
+      { date: "2024-08-22", revenue: 35 },
+      { date: "2024-08-23", revenue: 32 },
+      { date: "2024-08-24", revenue: 29 },
+      { date: "2024-08-25", revenue: 33 },
+    ],
+  };
+
   useEffect(() => {
-    setChartURL(`${webviewBaseURL}?timeframe=${selectedTimeframe}`);
+    const url =
+      webviewBaseURL +
+      `/charts?timeframe=${selectedTimeframe}&data=${decodeURIComponent(JSON.stringify(props.data))}`;
+    console.log(url);
+    setChartURL(url);
   }, [selectedTimeframe]);
 
   return (
