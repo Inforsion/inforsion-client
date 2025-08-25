@@ -5,7 +5,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Image } from "expo-image";
 import DefaultStoreThumbnail from "@/assets/images/inforsion-logo-black.png";
 
@@ -20,6 +20,7 @@ interface AnimatedStoreItemProps {
   styles: {
     storeWrapper: any;
     storeItem: any;
+    defaultStoreImage: any;
     storeImage: any;
   };
   onClickStore: () => void;
@@ -68,11 +69,8 @@ const AnimatedStoreItem = ({
             alt={store.name || "가게 이미지"}
             style={[
               styles.storeImage,
-              store.thumbnail
-                ? {}
-                : { backgroundColor: "transparent", padding: 20 },
+              store.thumbnail ? {} : styles.defaultStoreImage,
             ]}
-            contentFit="cover"
           />
         </Animated.View>
       </Pressable>
@@ -94,5 +92,14 @@ const AnimatedStoreItem = ({
     </View>
   );
 };
+
+const animatedStoreItemStyle = StyleSheet.create({
+  defaultStoreImage: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: ITEM_WIDTH / 2,
+    aspectRatio: 1,
+  },
+});
 
 export default AnimatedStoreItem;

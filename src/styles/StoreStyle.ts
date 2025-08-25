@@ -51,6 +51,12 @@ const storeStyles = (SCREEN_WIDTH: number) => {
       height: ITEM_WIDTH,
       borderRadius: ITEM_WIDTH / 2,
     },
+    defaultStoreImage: {
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: ITEM_WIDTH / 2,
+      aspectRatio: 1,
+    },
     logo: {
       position: "absolute",
       width: 100,

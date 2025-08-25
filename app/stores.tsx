@@ -99,7 +99,7 @@ const Stores = () => {
           snapToInterval={TOTAL_ITEM_WIDTH}
           snapToAlignment="center"
         >
-          {ownedStores.length > 0 ? (
+          {ownedStores.length > 0 && (
             <>
               {ownedStores.map((store, index) => (
                 <AnimatedStoreItem
@@ -111,21 +111,14 @@ const Stores = () => {
                   onClickStore={onClick}
                 />
               ))}
-              <AnimatedCreateButton
-                index={ownedStores.length}
-                scrollX={scrollX}
-                styles={styles}
-                onPress={onCreateStore}
-              />
             </>
-          ) : (
-            <AnimatedCreateButton
-              index={0}
-              scrollX={scrollX}
-              styles={styles}
-              onPress={onCreateStore}
-            />
           )}
+          <AnimatedCreateButton
+            index={ownedStores.length}
+            scrollX={scrollX}
+            styles={styles}
+            onPress={onCreateStore}
+          />
         </AnimatedScrollView>
         <View style={styles.alertContainer}>
           <Text style={styles.errorText}>{error ? error : ""}</Text>
