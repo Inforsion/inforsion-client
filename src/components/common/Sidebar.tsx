@@ -1,5 +1,5 @@
 // components/Sidebar.tsx
-import React, { useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -8,8 +8,6 @@ import {
   ScrollView,
   StyleSheet,
   SafeAreaView,
-  Modal,
-  Animated,
 } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import RevenueSVG from "@/assets/icons/revenue-outline.svg";
