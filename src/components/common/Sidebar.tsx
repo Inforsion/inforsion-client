@@ -11,15 +11,17 @@ import {
   Modal,
   Animated,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import RevenueSVG from "@/assets/icons/revenue-outline.svg";
 import OperationSVG from "@/assets/icons/operation.svg";
 import InventorySVG from "@/assets/icons/inventory.svg";
 import RecipeSVG from "@/assets/icons/recipe.svg";
 import Icon from "@/src/components/common/Icon";
 import { Colors } from "@/src/constants/Colors";
+import { useRouter } from "expo-router";
 
 const Sidebar = () => {
+  const router = useRouter();
   const menuItems = [
     {
       id: "sales",
@@ -42,6 +44,9 @@ const Sidebar = () => {
       icon: RecipeSVG,
     },
   ];
+  const navigateToStores = () => {
+    router.navigate("/stores");
+  };
 
   return (
     <SafeAreaView style={[styles.overlay]}>
@@ -73,6 +78,14 @@ const Sidebar = () => {
         </View>
         <TouchableOpacity style={styles.manualButton} activeOpacity={0.8}>
           <Text style={styles.manualButtonText}>메뉴 등록 하러가기 →</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={navigateToStores}
+          style={styles.changeStoreItem}
+          activeOpacity={0.7}
+        >
+          <FontAwesome name="exchange" size={24} color="#666" />
+          <Text style={styles.logoutText}>가게 변경하기</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.logoutItem} activeOpacity={0.7}>
           <Ionicons name="log-out-outline" size={24} color="#666" />
@@ -190,6 +203,13 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
+  },
+  changeStoreItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 16,
+    paddingHorizontal: 15,
+    borderRadius: 12,
   },
   logoutItem: {
     flexDirection: "row",
