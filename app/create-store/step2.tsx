@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { router } from "expo-router";
 
 import StepIndicator from "@/src/components/Ingr/StepIndicator";
@@ -26,12 +26,10 @@ export default function Step2Screen() {
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1 }}>
         <StepIndicator maxSteps={3} currentStep={1} />
-
         <View style={styles.header}>
           <Text style={styles.title}>{stepData.title}</Text>
           <Text style={styles.description}>{stepData.description}</Text>
         </View>
-
         <View style={styles.content}>{stepData.content}</View>
         <NavigationButtons
           onNext={stepData.handleNext}

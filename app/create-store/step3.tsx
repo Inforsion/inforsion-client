@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { router } from "expo-router";
 import StepIndicator from "@/src/components/Ingr/StepIndicator";
 import useCreateStore from "@/hooks/stores/useCreateStore";
@@ -46,14 +46,12 @@ export default function Step3Screen() {
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1 }}>
         <StepIndicator maxSteps={3} currentStep={2} />
-
         <View style={styles.header}>
           <Text style={styles.title}>가게 생성</Text>
           <Text style={styles.description}>
             운영할 가게를 추가하여 관리해보세요
           </Text>
         </View>
-
         <View style={styles.content}>
           <Step3Content storeForm={storeForm} />
         </View>
