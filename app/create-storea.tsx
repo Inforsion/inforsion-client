@@ -12,9 +12,9 @@ import { createStore } from "@/src/api/store/storeAPI";
 import { PostStorePayload } from "@/src/types/Store";
 import { Colors } from "@/src/constants/Colors";
 import useStep from "@/hooks/useStep";
-import Step1 from "@/src/components/store/create/Step1";
-import Step2 from "@/src/components/store/create/Step2";
-import Step3 from "@/src/components/store/create/Step3";
+import Step1Content from "@/src/components/store/create/Step1Content";
+import Step2Content from "@/src/components/store/create/Step2Content";
+import Step3Content from "@/src/components/store/create/Step3Content";
 
 const CreateStoreScreen = () => {
   const colorScheme = useColorScheme();
@@ -55,19 +55,23 @@ const CreateStoreScreen = () => {
     {
       title: "가게 생성",
       description: "운영할 가게를 추가하여 관리해보세요",
-      content: <Step1 storeForm={storeForm} handleChange={handleChange} />,
+      content: (
+        <Step1Content storeForm={storeForm} handleChange={handleChange} />
+      ),
       validate: () => !!storeForm.name && !!storeForm.location,
     },
     {
       title: "비밀번호 설정",
       description: "새로운 가게 비밀번호 (5자리)를 입력해주세요",
-      content: <Step2 storeForm={storeForm} handleChange={handleChange} />,
+      content: (
+        <Step2Content storeForm={storeForm} handleChange={handleChange} />
+      ),
       validate: () => storeForm.password.length === 5,
     },
     {
       title: "가게 정보 확인",
       description: "가게 정보를 한 번 더 확인해주세요.",
-      content: <Step3 storeForm={storeForm} />,
+      content: <Step3Content storeForm={storeForm} />,
     },
   ];
 
