@@ -1,8 +1,7 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { router } from "expo-router";
-
 import StepIndicator from "@/src/components/Ingr/StepIndicator";
 import useCreateStore from "@/hooks/stores/useCreateStore";
 import NavigationButtons from "@/src/components/common/button/NavigationButtons";
@@ -23,20 +22,22 @@ export default function Step3Screen() {
       name: storeForm.name,
       description: "",
       thumbnail: storeForm.thumbnail,
-      location: "청당동",
-      phoneNumber: "01090504371",
-      email: "starbucks@gmail.com",
-      businessRegistrationNumber: "1234",
-      openingHours: "10",
+      location: "임의의 주소",
     };
 
-    const data = await createStore(postData, 1);
-    console.log("서버 응답:", data);
-    console.log("가게 정보:", storeForm);
+    const data = await createStore(postData);
+    if (data) {
+      router.navigate("/stores");
+    } else {
+      Alert.alert("가게 생성에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
-  const handleChange = (field: string, value: string) => {
-    updateStoreForm(field, value);
+  const stepData = {
+    title: "가게 정보 확인",
+    description: "가게 정보를 한 번 더 확인해주세요.",
+    content: <Step3Content storeForm={storeForm} />,
+    handleNext: () => handleSubmit(),
   };
 
   return (
@@ -55,7 +56,7 @@ export default function Step3Screen() {
           <Step3Content storeForm={storeForm} />
         </View>
         <NavigationButtons
-          onNext={handleSubmit}
+          onNext={stepData.handleNext}
           canGoNext={true}
           nextLabel={"다음"}
         />
