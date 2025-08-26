@@ -59,7 +59,7 @@ const Stores = () => {
     router.navigate("/dashboard");
   };
   const onCreateStore = () => {
-    router.navigate("/create-store");
+    router.navigate("/create-store/step1");
   };
 
   const getStores = async () => {
