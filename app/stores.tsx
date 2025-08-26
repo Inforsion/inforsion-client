@@ -10,7 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { mockStores } from "@/src/constants/Store";
-import storeStyles from "@/src/styles/StoreStyle";
+import storeStyles from "@/src/styles/store/StoreStyle";
 import AnimatedStoreItem from "@/src/components/store/AnimatedStoreItem";
 import AnimatedCreateButton from "@/src/components/store/AnimatedCreateButton";
 import { useRouter } from "expo-router";

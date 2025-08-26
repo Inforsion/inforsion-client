@@ -7,9 +7,11 @@ import StepIndicator from "@/src/components/Ingr/StepIndicator";
 import useCreateStore from "@/hooks/stores/useCreateStore";
 import NavigationButtons from "@/src/components/common/button/NavigationButtons";
 import Step2Content from "@/src/components/store/create/Step2Content";
+import useCreateStoreStyle from "@/src/styles/store/CreateStoreStyle";
 
 export default function Step2Screen() {
   const { storeForm, updateStoreForm } = useCreateStore();
+  const styles = useCreateStoreStyle();
 
   const stepData = {
     title: "비밀번호 설정",
@@ -40,28 +42,3 @@ export default function Step2Screen() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 20,
-    paddingTop: 48,
-  },
-  header: {
-    marginBottom: 20,
-  },
-  title: {
-    fontWeight: "700",
-    marginBottom: 4,
-    fontSize: 20,
-    color: "#000",
-  },
-  description: {
-    fontWeight: "400",
-    fontSize: 12,
-    color: "#666",
-  },
-  content: {
-    flex: 1,
-  },
-});

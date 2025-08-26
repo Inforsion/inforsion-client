@@ -7,10 +7,11 @@ import StepIndicator from "@/src/components/Ingr/StepIndicator";
 import Step1Content from "@/src/components/store/create/Step1Content";
 import useCreateStore from "@/hooks/stores/useCreateStore";
 import NavigationButtons from "@/src/components/common/button/NavigationButtons";
+import useCreateStoreStyle from "@/src/styles/store/CreateStoreStyle";
 
 export default function Step1Screen() {
   const { storeForm, updateStoreForm } = useCreateStore();
-
+  const styles = useCreateStoreStyle();
   const stepData = {
     title: "가게 생성",
     description: "운영할 가게를 추가하여 관리해보세요",
@@ -40,28 +41,3 @@ export default function Step1Screen() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 20,
-    paddingTop: 48,
-  },
-  header: {
-    marginBottom: 20,
-  },
-  title: {
-    fontWeight: "700",
-    marginBottom: 4,
-    fontSize: 20,
-    color: "#000",
-  },
-  description: {
-    fontWeight: "400",
-    fontSize: 12,
-    color: "#666",
-  },
-  content: {
-    flex: 1,
-  },
-});

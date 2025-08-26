@@ -8,9 +8,11 @@ import NavigationButtons from "@/src/components/common/button/NavigationButtons"
 import Step3Content from "@/src/components/store/create/Step3Content";
 import { PostStorePayload } from "@/src/types/Store";
 import { createStore } from "@/api/store/storeAPI";
+import useCreateStoreStyle from "@/src/styles/store/CreateStoreStyle";
 
 export default function Step3Screen() {
   const { storeForm, updateStoreForm } = useCreateStore();
+  const styles = useCreateStoreStyle();
 
   const handleSubmit = async () => {
     if (!storeForm.name || !storeForm.password) {
@@ -64,28 +66,3 @@ export default function Step3Screen() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 20,
-    paddingTop: 48,
-  },
-  header: {
-    marginBottom: 20,
-  },
-  title: {
-    fontWeight: "700",
-    marginBottom: 4,
-    fontSize: 20,
-    color: "#000",
-  },
-  description: {
-    fontWeight: "400",
-    fontSize: 12,
-    color: "#666",
-  },
-  content: {
-    flex: 1,
-  },
-});
