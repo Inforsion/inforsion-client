@@ -9,6 +9,7 @@ import {
 import { Colors } from "@/src/constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+import * as Haptics from "expo-haptics";
 
 interface Step2Props {
   storeForm: {
@@ -94,7 +95,10 @@ const Step2Content = ({
         step2Styles.keypadButton,
         { backgroundColor: colors.background.primary },
       ]}
-      onPress={() => handlePasswordInput(digit)}
+      onPress={() => {
+        Haptics.selectionAsync();
+        handlePasswordInput(digit);
+      }}
       activeOpacity={0.7}
     >
       <Text

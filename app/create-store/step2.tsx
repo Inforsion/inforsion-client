@@ -19,7 +19,7 @@ export default function Step2Screen() {
     content: (
       <Step2Content storeForm={storeForm} handleChange={updateStoreForm} />
     ),
-    handleNext: () => router.push("/create-store/step2"),
+    handleNext: () => router.push("/create-store/step3"),
   };
 
   return (
