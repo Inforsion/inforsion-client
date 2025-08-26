@@ -8,17 +8,21 @@ import Step1Content from "@/src/components/store/create/Step1Content";
 import useCreateStore from "@/hooks/stores/useCreateStore";
 import NavigationButtons from "@/src/components/common/button/NavigationButtons";
 import useCreateStoreStyle from "@/src/styles/store/CreateStoreStyle";
+import { StepData } from "@/src/types/Common";
 
 export default function Step1Screen() {
   const { storeForm, updateStoreForm } = useCreateStore();
   const styles = useCreateStoreStyle();
-  const stepData = {
+  const stepData: StepData = {
     title: "가게 생성",
     description: "운영할 가게를 추가하여 관리해보세요",
     content: (
       <Step1Content storeForm={storeForm} handleChange={updateStoreForm} />
     ),
     handleNext: () => router.push("/create-store/step2"),
+    validation: () => {
+      return storeForm.name.trim().length > 0;
+    },
   };
 
   return (
@@ -32,7 +36,7 @@ export default function Step1Screen() {
         <View style={styles.content}>{stepData.content}</View>
         <NavigationButtons
           onNext={stepData.handleNext}
-          canGoNext={true}
+          canGoNext={stepData.validation()}
           nextLabel={"다음"}
         />
       </View>

@@ -9,6 +9,7 @@ import Step3Content from "@/src/components/store/create/Step3Content";
 import { PostStorePayload } from "@/src/types/Store";
 import { createStore } from "@/api/store/storeAPI";
 import useCreateStoreStyle from "@/src/styles/store/CreateStoreStyle";
+import { StepData } from "@/src/types/Common";
 
 export default function Step3Screen() {
   const { storeForm, updateStoreForm } = useCreateStore();
@@ -35,11 +36,12 @@ export default function Step3Screen() {
     }
   };
 
-  const stepData = {
+  const stepData: StepData = {
     title: "가게 정보 확인",
     description: "가게 정보를 한 번 더 확인해주세요.",
     content: <Step3Content storeForm={storeForm} />,
     handleNext: () => handleSubmit(),
+    validation: () => true,
   };
 
   return (
@@ -57,7 +59,7 @@ export default function Step3Screen() {
         </View>
         <NavigationButtons
           onNext={stepData.handleNext}
-          canGoNext={true}
+          canGoNext={stepData.validation()}
           nextLabel={"다음"}
         />
       </View>
