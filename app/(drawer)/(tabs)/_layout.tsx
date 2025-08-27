@@ -48,7 +48,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="dashboard"
           options={{
-            title: "대시보드",
+            title: "홈",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return <Icon icon={HomeActiveSVG} size={size} color={color} />;
@@ -76,25 +76,9 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="inventory"
+          name="product"
           options={{
-            title: "재고",
-            tabBarIcon: ({ color, focused, size }) => {
-              if (focused) {
-                return (
-                  <Icon icon={InventoryActiveSVG} size={size} color={color} />
-                );
-              } else {
-                return <Icon icon={InventorySVG} size={size} color={color} />;
-              }
-            },
-            headerShown: false,
-          }}
-        />
-        <Tabs.Screen
-          name="operation"
-          options={{
-            title: "운영",
+            title: "상품",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return (
@@ -102,6 +86,22 @@ export default function TabLayout() {
                 );
               } else {
                 return <Icon icon={OperationSVG} size={size} color={color} />;
+              }
+            },
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="ingredient"
+          options={{
+            title: "재료",
+            tabBarIcon: ({ color, focused, size }) => {
+              if (focused) {
+                return (
+                  <Icon icon={InventoryActiveSVG} size={size} color={color} />
+                );
+              } else {
+                return <Icon icon={InventorySVG} size={size} color={color} />;
               }
             },
             headerShown: false,
