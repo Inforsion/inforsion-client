@@ -8,10 +8,9 @@ import {
   ScrollView,
   StyleSheet,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import RevenueSVG from "@/assets/icons/revenue-outline.svg";
-import OperationSVG from "@/assets/icons/operation.svg";
 import InventorySVG from "@/assets/icons/inventory.svg";
 import RecipeSVG from "@/assets/icons/recipe.svg";
 import Icon from "@/src/components/common/Icon";
@@ -20,26 +19,26 @@ import { useRouter } from "expo-router";
 
 const Sidebar = () => {
   const router = useRouter();
+  const disabledMenuPress = () => {
+    Alert.alert(
+      "서비스 준비중",
+      "해당 서비스는 현재 준비중입니다. 추후 업데이트를 기대해주세요.",
+      [{ text: "확인" }],
+    );
+  };
+
   const menuItems = [
     {
-      id: "sales",
-      title: "매출",
-      icon: RevenueSVG,
-    },
-    {
-      id: "inventory",
-      title: "재고",
+      id: "mypage",
+      title: "마이페이지",
       icon: InventorySVG,
+      onPress: disabledMenuPress,
     },
     {
-      id: "operations",
-      title: "운영",
-      icon: OperationSVG,
-    },
-    {
-      id: "menu",
-      title: "우리 가게 메뉴",
+      id: "analysis-commercial",
+      title: "상권 분석",
       icon: RecipeSVG,
+      onPress: disabledMenuPress,
     },
   ];
   const navigateToStores = () => {
@@ -48,47 +47,56 @@ const Sidebar = () => {
 
   return (
     <SafeAreaView style={[styles.overlay]}>
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.searchContainer}>
-          <Ionicons
-            name="search"
-            size={20}
-            color="#666"
-            style={styles.searchIcon}
-          />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search..."
-            placeholderTextColor="#999"
-          />
+      <ScrollView
+        style={styles.content}
+        contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View>
+          <View style={styles.searchContainer}>
+            <Ionicons
+              name="search"
+              size={20}
+              color="#666"
+              style={styles.searchIcon}
+            />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search..."
+              placeholderTextColor="#999"
+            />
+          </View>
+          <View style={styles.menuContainer}>
+            {menuItems.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.menuItem}
+                activeOpacity={0.7}
+                onPress={item.onPress}
+              >
+                <Icon icon={item.icon} size={24} color={"black"} />
+                <Text style={styles.menuText}>{item.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-        <View style={styles.menuContainer}>
-          {menuItems.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              style={styles.menuItem}
-              activeOpacity={0.7}
-            >
-              <Icon icon={item.icon} size={24} color={"black"} />
-              <Text style={styles.menuText}>{item.title}</Text>
-            </TouchableOpacity>
-          ))}
+        <View>
+          <TouchableOpacity style={styles.manualButton} activeOpacity={0.8}>
+            <Text style={styles.manualButtonText}>메뉴 등록 하러가기 →</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={navigateToStores}
+            style={styles.changeStoreItem}
+            activeOpacity={0.7}
+          >
+            <FontAwesome name="exchange" size={24} color="#666" />
+            <Text style={styles.logoutText}>가게 변경하기</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.logoutItem} activeOpacity={0.7}>
+            <Ionicons name="log-out-outline" size={24} color="#666" />
+            <Text style={styles.logoutText}>Logout</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.manualButton} activeOpacity={0.8}>
-          <Text style={styles.manualButtonText}>메뉴 등록 하러가기 →</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={navigateToStores}
-          style={styles.changeStoreItem}
-          activeOpacity={0.7}
-        >
-          <FontAwesome name="exchange" size={24} color="#666" />
-          <Text style={styles.logoutText}>가게 변경하기</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.logoutItem} activeOpacity={0.7}>
-          <Ionicons name="log-out-outline" size={24} color="#666" />
-          <Text style={styles.logoutText}>Logout</Text>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -119,7 +127,9 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: "#fff",
     flex: 1,
+    flexDirection: "column",
     paddingHorizontal: 20,
+    paddingBottom: 40,
   },
   header: {
     flexDirection: "row",

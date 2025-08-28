@@ -5,9 +5,6 @@ import { HapticTab } from "@/src/components/HapticTab";
 import TabBarBackground from "@/src/components/ui/TabBarBackground";
 import { useColorScheme } from "@/src/hooks/useColorScheme";
 import { Colors } from "@/src/constants/Colors";
-import StatusBarCover from "@/src/components/ui/IOSStatusBarCover";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Image } from "expo-image";
 import HomeSVG from "@/assets/icons/home.svg";
 import HomeActiveSVG from "@/assets/icons/home-active.svg";
 import RevenueSVG from "@/assets/icons/revenue.svg";
@@ -16,7 +13,6 @@ import InventorySVG from "@/assets/icons/inventory.svg";
 import InventoryActiveSVG from "@/assets/icons/inventory-active.svg";
 import OperationSVG from "@/assets/icons/operation.svg";
 import OperationActiveSVG from "@/assets/icons/operation-active.svg";
-import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
 import Icon from "@/src/components/common/Icon";
 
 export default function TabLayout() {
@@ -48,7 +44,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="dashboard"
           options={{
-            title: "대시보드",
+            title: "홈",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return <Icon icon={HomeActiveSVG} size={size} color={color} />;
@@ -76,9 +72,9 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="inventory"
+          name="product"
           options={{
-            title: "재고",
+            title: "상품",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return (
@@ -92,9 +88,9 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="operation"
+          name="ingredient"
           options={{
-            title: "운영",
+            title: "재료",
             tabBarIcon: ({ color, focused, size }) => {
               if (focused) {
                 return (
