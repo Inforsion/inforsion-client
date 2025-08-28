@@ -46,8 +46,9 @@ export default function RootLayout() {
           })}
         />
         <Stack.Screen name="+not-found" />
-        <Stack.Screen name="splash_intro" options={{ headerShown: false }} />
-        <Stack.Screen name="ingr" options={{ headerShown: false }} />
+        <Stack.Screen name="splash_intro" options={{headerShown: false}} />
+        <Stack.Screen name="ingr" options={{headerShown: false}} />
+          <Stack.Screen name="recipe" options={{headerShown: false}} />
       </Stack>
       <StatusBar backgroundColor={"#fff"} />
     </ThemeProvider>

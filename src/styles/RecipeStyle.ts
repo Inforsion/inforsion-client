@@ -1,0 +1,156 @@
+import {StyleSheet} from 'react-native';
+
+export const recipeStyles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: '#ffffff',
+            paddingHorizontal: 20,
+            paddingTop: 40,
+        },
+        card: {
+            borderWidth: 1,
+            borderColor: '#D1D1D1',
+            borderRadius: 10,
+            padding: 16,
+            backgroundColor: '#ffffff',
+            marginBottom: 20,
+        },
+        row: {
+            flexDirection: 'row',
+            marginBottom: 14,
+            alignItems: 'center',
+        },
+        col: {
+            flex: 1,
+            flexDirection: 'column',
+        },
+        label: {
+            flex: 1,
+            fontSize: 12,
+            fontWeight: 'bold',
+            color: '#2F2F2F',
+        },
+        inputWrapper: {
+            flex: 2,
+        },
+        input: {
+            fontSize: 12,
+            paddingVertical: 4,
+            color: '#343434',
+        },
+        unitText: {
+            fontSize: 12,
+            color: '#A5A5A5',
+            marginTop: 2,
+        },
+        submitButton: {
+            backgroundColor: '#2897FF',
+            paddingVertical: 14,
+            borderRadius: 8,
+            alignItems: 'center',
+            marginBottom: 30,
+        },
+        submitText: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontSize: 16,
+        },
+        headerRow: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: 10,
+        },
+        listTitle: {
+            color: '#272525',
+            fontWeight: 'bold',
+            fontSize: 14,
+        },
+        editText: {
+            color: '#FF7173',
+            fontWeight: 'bold',
+            fontSize: 12,
+            textDecorationLine: 'underline',
+        },
+        tableHeader: {
+            flexDirection: 'row',
+            borderBottomWidth: 1,
+            paddingTop: 28,
+            paddingBottom: 16,
+            marginBottom: 8,
+        },
+        th: {
+            flex: 1,
+            fontWeight: 'bold',
+            fontSize: 12,
+            textAlign: 'center',
+        },
+        rowList: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 12,
+            borderBottomWidth: 0.5,
+            borderColor: '#ccc',
+        },
+        td: {
+            flex: 1,
+            textAlign: 'center',
+            color: '#272525',
+            fontSize: 12,
+        },
+        image: {
+            width: 50,
+            height: 50,
+            borderRadius: 10,
+            backgroundColor: '#ddd',
+            marginHorizontal: 5,
+        },
+        stockCell: {
+            flex: 1,
+            alignItems: 'center',
+        },
+        subText: {
+            fontSize: 10,
+            color: '#888',
+        },
+        checkboxBox: {
+            width: 16,
+            height: 16,
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: '#D9D9D9',
+            backgroundColor: '#fff',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        checkboxBoxChecked: {
+            backgroundColor: '#FF7173',
+            borderColor: '#FF7173',
+        },
+        checkboxMark: {
+            color: '#fff',
+            fontSize: 11,
+            lineHeight: 12,
+            fontWeight: '700',
+        },
+
+        tdCell: {
+            flex: 1,
+            alignItems: 'center',
+        },
+
+        deleteBtn: {
+            marginTop: 12,
+            height: 48,
+            borderRadius: 12,
+            backgroundColor: '#FF7173',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        deleteBtnText: {
+            color: '#fff',
+            fontSize: 16,
+            fontWeight: '600',
+        },
+
+
+    });
