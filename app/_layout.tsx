@@ -29,7 +29,14 @@ export default function RootLayout() {
           name="stores"
           options={{
             title: selectedStore ? "가게 변경" : "가게 선택",
-            headerShown: !!selectedStore,
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={"create-store"}
+          options={{
+            title: selectedStore ? "가게 변경" : "가게 선택",
+            headerShown: false,
           }}
         />
         <Stack.Screen
@@ -42,8 +49,6 @@ export default function RootLayout() {
         <Stack.Screen name="splash_intro" options={{headerShown: false}} />
         <Stack.Screen name="ingr" options={{headerShown: false}} />
           <Stack.Screen name="recipe" options={{headerShown: false}} />
-
-
       </Stack>
       <StatusBar backgroundColor={"#fff"} />
     </ThemeProvider>

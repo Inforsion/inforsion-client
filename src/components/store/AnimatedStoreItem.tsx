@@ -5,9 +5,10 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { Pressable, Text, View } from "react-native";
-import { Image } from "expo-image";
-import DefaultStoreThumbnail from "@/assets/images/inforsion-logo-black.png";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, ImageSource } from "expo-image";
+import DefaultStoreThumbnail from "@/assets/images/inforsion-logo-color.png";
+import { Colors } from "@/src/constants/Colors";
 
 const ITEM_WIDTH = 150;
 const ITEM_SPACING = 10;
@@ -20,6 +21,7 @@ interface AnimatedStoreItemProps {
   styles: {
     storeWrapper: any;
     storeItem: any;
+    defaultStoreImage: any;
     storeImage: any;
   };
   onClickStore: () => void;
@@ -63,17 +65,18 @@ const AnimatedStoreItem = ({
     <View style={styles.storeWrapper}>
       <Pressable onPress={onClickStore}>
         <Animated.View style={[styles.storeItem, animatedStyle]}>
-          <Image
-            source={store.thumbnail || DefaultStoreThumbnail}
-            alt={store.name || "가게 이미지"}
-            style={[
-              styles.storeImage,
-              store.thumbnail
-                ? {}
-                : { backgroundColor: "transparent", padding: 20 },
-            ]}
-            contentFit="cover"
-          />
+          {store.thumbnail ? (
+            <Image
+              source={store.thumbnail || DefaultStoreThumbnail}
+              alt={store.name || "가게 이미지"}
+              style={[
+                styles.storeImage,
+                store.thumbnail ? {} : styles.defaultStoreImage,
+              ]}
+            />
+          ) : (
+            <DefaultStoreImage />
+          )}
         </Animated.View>
       </Pressable>
       <Text
@@ -94,5 +97,28 @@ const AnimatedStoreItem = ({
     </View>
   );
 };
+
+const DefaultStoreImage = () => {
+  return (
+    <Image
+      source={DefaultStoreThumbnail}
+      style={{
+        width: ITEM_WIDTH,
+        height: ITEM_WIDTH,
+        resizeMode: "contain",
+        borderRadius: ITEM_WIDTH / 2,
+      }}
+    />
+  );
+};
+
+const animatedStoreItemStyle = StyleSheet.create({
+  defaultStoreImage: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: ITEM_WIDTH / 2,
+    aspectRatio: 1,
+  },
+});
 
 export default AnimatedStoreItem;

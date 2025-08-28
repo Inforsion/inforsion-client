@@ -3,7 +3,7 @@ import { PostStorePayload, Store } from "@/src/types/Store";
 
 export const getAllStores = async (userId: number) => {
   try {
-    const response = await Get<Store[]>(`/api/v1/stores/user/${userId}`);
+    const response = await Get<Store[]>(`/api/v1/stores/my`);
     return response.data;
   } catch (error) {
     console.error("전체 가게 불러오기 실패", error);
@@ -40,10 +40,10 @@ interface CreateStoreResponse {
   hasThumbnail: boolean;
 }
 
-export const createStore = async (data: PostStorePayload, userId: number) => {
+export const createStore = async (data: PostStorePayload) => {
   try {
     const response = await Post<CreateStoreResponse, PostStorePayload>(
-      `/api/v1/stores/${userId}`,
+      `/api/v1/stores`,
       data,
     );
     return response.data;

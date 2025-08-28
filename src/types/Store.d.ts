@@ -19,15 +19,23 @@ export interface Store {
   hasThumbnail: boolean;
 }
 
-export type PostStorePayload = Omit<
-  Store,
-  | "id"
-  | "userId"
-  | "createdAt"
-  | "updatedAt"
-  | "thumbnailUrl"
-  | "originalFileName"
-  | "s3Key"
-  | "hasThumbnail"
-  | "isActive"
->;
+export interface PostStorePayload {
+  name: string;
+  description?: string;
+  location?: string;
+  thumbnail?: string; // 이미지 URL
+  password?: string;
+}
+
+// export type PostStorePayload = Omit<
+//   Store,
+//   | "id"
+//   | "userId"
+//   | "createdAt"
+//   | "updatedAt"
+//   | "thumbnailUrl"
+//   | "originalFileName"
+//   | "s3Key"
+//   | "hasThumbnail"
+//   | "isActive"
+// >;

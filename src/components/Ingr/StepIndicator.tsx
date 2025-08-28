@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { ingrStyles } from '@/src/styles/IngrStyle';
+import React from "react";
+import { View, Text } from "react-native";
+import { ingrStyles } from "@/src/styles/IngrStyle";
+
 
 type StepIndicatorProps = {
     currentStep: number;

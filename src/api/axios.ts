@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.API_BASE_URL || "http://localhost:8080",
+  baseURL: process.env.EXPO_PUBLIC_API_BASE_URL || "http://192.168.55.48:8080",
   timeout: 10000,
 });
 

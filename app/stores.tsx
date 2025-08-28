@@ -10,7 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { mockStores } from "@/src/constants/Store";
-import storeStyles from "@/src/styles/StoreStyle";
+import storeStyles from "@/src/styles/store/StoreStyle";
 import AnimatedStoreItem from "@/src/components/store/AnimatedStoreItem";
 import AnimatedCreateButton from "@/src/components/store/AnimatedCreateButton";
 import { useRouter } from "expo-router";
@@ -59,7 +59,7 @@ const Stores = () => {
     router.navigate("/dashboard");
   };
   const onCreateStore = () => {
-    router.navigate("/create-store");
+    router.navigate("/create-store/step1");
   };
 
   const getStores = async () => {
@@ -99,7 +99,7 @@ const Stores = () => {
           snapToInterval={TOTAL_ITEM_WIDTH}
           snapToAlignment="center"
         >
-          {ownedStores.length > 0 ? (
+          {ownedStores.length > 0 && (
             <>
               {ownedStores.map((store, index) => (
                 <AnimatedStoreItem
@@ -111,21 +111,14 @@ const Stores = () => {
                   onClickStore={onClick}
                 />
               ))}
-              <AnimatedCreateButton
-                index={ownedStores.length}
-                scrollX={scrollX}
-                styles={styles}
-                onPress={onCreateStore}
-              />
             </>
-          ) : (
-            <AnimatedCreateButton
-              index={0}
-              scrollX={scrollX}
-              styles={styles}
-              onPress={onCreateStore}
-            />
           )}
+          <AnimatedCreateButton
+            index={ownedStores.length}
+            scrollX={scrollX}
+            styles={styles}
+            onPress={onCreateStore}
+          />
         </AnimatedScrollView>
         <View style={styles.alertContainer}>
           <Text style={styles.errorText}>{error ? error : ""}</Text>
