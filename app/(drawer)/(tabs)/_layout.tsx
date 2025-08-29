@@ -72,7 +72,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="product"
+          name="recipe"
           options={{
             title: "상품",
             tabBarIcon: ({ color, focused, size }) => {
@@ -88,7 +88,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="ingredient"
+          name="ingr"
           options={{
             title: "재료",
             tabBarIcon: ({ color, focused, size }) => {
