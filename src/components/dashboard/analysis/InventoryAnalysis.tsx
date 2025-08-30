@@ -13,7 +13,7 @@ const InventoryAnalysis = () => {
   const baseURL = process.env.EXPO_PUBLIC_WEBVIEW_URL;
   const chartURL =
     baseURL +
-    '/charts/inventory?timeframe=일&data=[{"date":"2024-06-01","inventoryConsumed":100},{"date":"2024-06-02","inventoryConsumed":200},{"date":"2024-06-03","inventoryConsumed":150},{"date":"2024-06-04","inventoryConsumed":300},{"date":"2024-06-05","inventoryConsumed":250},{"date":"2024-06-06","inventoryConsumed":400},{"date":"2024-06-07","inventoryConsumed":350}]';
+    '/charts/inventory?timeframe=일&data=[{"date":"2025-08-01","inventoryConsumed":100},{"date":"2025-08-02","inventoryConsumed":200},{"date":"2025-08-03","inventoryConsumed":150},{"date":"2025-08-04","inventoryConsumed":300},{"date":"2025-08-05","inventoryConsumed":250},{"date":"2025-08-06","inventoryConsumed":400},{"date":"2025-08-07","inventoryConsumed":350}]';
 
   return (
     <View style={styles.container}>
