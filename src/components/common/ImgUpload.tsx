@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { ingrStyles } from '@/src/styles/IngrStyle';
-import CameraImg from "@/assets/images/Ingr/camera.png";
+import CameraImg from '@/assets/images/Ingr/camera.png';
 
 type Props = {
     value?: string | null;
@@ -18,7 +17,7 @@ const ImgUpload = ({ value, onChange }: Props) => {
         }
 
         const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ['images'],
+            mediaTypes: ['images'], // RN 0.74+ 권장 방식 (expo-image-picker 최신 경고 회피)
             allowsEditing: true,
             quality: 0.9,
         });
@@ -29,18 +28,14 @@ const ImgUpload = ({ value, onChange }: Props) => {
     };
 
     return (
-        <TouchableOpacity
-            style={ingrStyles.photoUpload}
-            activeOpacity={0.8}
-            onPress={handlePickImage}
-        >
-            <View style={ingrStyles.photoIconCircle}>
+        <TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={handlePickImage}>
+            <View style={styles.circle}>
                 {value ? (
-                    <Image source={{ uri: value }} style={ingrStyles.photoImage} />
+                    <Image source={{ uri: value }} style={styles.photo} />
                 ) : (
                     <>
                         <Image source={CameraImg} />
-                        <Text style={ingrStyles.photoText}>사진을 등록해주세요</Text>
+                        <Text style={styles.helper}>사진을 등록해주세요</Text>
                     </>
                 )}
             </View>
@@ -49,3 +44,29 @@ const ImgUpload = ({ value, onChange }: Props) => {
 };
 
 export default ImgUpload;
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    circle: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        backgroundColor: '#F2F2F2',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+    },
+    helper: {
+        marginTop: 10,
+        color: '#515151',
+        fontSize: 10,
+    },
+    photo: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+    },
+});

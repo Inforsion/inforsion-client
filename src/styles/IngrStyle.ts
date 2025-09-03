@@ -34,29 +34,6 @@ export const ingrStyles = StyleSheet.create({
         backgroundColor: '#ffffff',
         marginBottom: 20,
     },
-    photoUpload: {
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    photoIconCircle: {
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        backgroundColor: '#F2F2F2',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-    },
-    photoText: {
-        marginTop: 10,
-        color: '#515151',
-        fontSize: 10,
-    },
-    photoImage: {
-        width: '100%',
-        height: '100%',
-        resizeMode: 'cover',
-    },
     row: {
         flexDirection: 'row',
         marginBottom: 14,
