@@ -1,6 +1,7 @@
 import { Colors } from "@/src/constants/Colors";
 import { StyleSheet, Text, View, Image } from "react-native";
 import ChartImage from "../../../../assets/images/chart/mock/img.png";
+import ChartWebView from "@/src/components/webview/ChartWebView";
 
 const InventoryAnalysis = () => {
   const 분석결과 = {
@@ -8,6 +9,20 @@ const InventoryAnalysis = () => {
     description: "오늘 하루동안 많이 사용될 예상재고",
     date: "2025.08.18",
   };
+
+  const baseURL = process.env.EXPO_PUBLIC_WEBVIEW_URL;
+  const chartPath = "/charts/inventory";
+  const timeframe = "일";
+  const data = [
+    { date: "2025-08-01", inventoryConsumed: 100 },
+    { date: "2025-08-02", inventoryConsumed: 200 },
+    { date: "2025-08-03", inventoryConsumed: 150 },
+    { date: "2025-08-04", inventoryConsumed: 300 },
+    { date: "2025-08-05", inventoryConsumed: 250 },
+    { date: "2025-08-06", inventoryConsumed: 400 },
+    { date: "2025-08-07", inventoryConsumed: 350 },
+  ];
+  const chartURL = `${baseURL}${chartPath}?timeframe=${timeframe}&data=${JSON.stringify(data)}`;
 
   return (
     <View style={styles.container}>
@@ -20,7 +35,7 @@ const InventoryAnalysis = () => {
       </Text>
       <View style={styles.chart}>
         {/*  최근 1주간 가장  많이 팔린 재고의 양 차트*/}
-        <Image style={{ width: "100%", height: "100%" }} source={ChartImage} />
+        <ChartWebView url={chartURL} />
       </View>
     </View>
   );
