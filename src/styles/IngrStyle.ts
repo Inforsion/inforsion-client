@@ -7,25 +7,6 @@ export const ingrStyles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 40,
     },
-    stepWrapper: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    stepCircle: {
-        width: 28,
-        height: 28,
-        borderRadius: 14,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#268AFF',
-        marginRight: 8,
-    },
-    stepText: {
-        color: '#fff',
-        fontWeight: 'bold',
-    },
     card: {
         borderWidth: 1,
         borderColor: '#D1D1D1',
