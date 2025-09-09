@@ -20,6 +20,7 @@ const RevenueChartSection = () => {
 
   const [selectedTimeframe, setSelectedTimeframe] = useState<PeriodType>("주");
   const webviewBaseURL = `${process.env.EXPO_PUBLIC_WEBVIEW_URL}`;
+
   const [chartURL, setChartURL] = useState(webviewBaseURL);
 
   const toggleTimeframe = (timeframe: "일" | "주" | "월") => {
@@ -38,11 +39,18 @@ const RevenueChartSection = () => {
       { date: "2024-08-25", revenue: 33 },
     ],
   };
+  const chartAPIData = {
+    path: "/charts/revenue",
+    params: {
+      timeframe: selectedTimeframe,
+      data: props.data,
+    },
+  };
 
   useEffect(() => {
     const url =
       webviewBaseURL +
-      `/charts?timeframe=${selectedTimeframe}&data=${decodeURIComponent(JSON.stringify(props.data))}`;
+      `${chartAPIData.path}?timeframe=${selectedTimeframe}&data=${decodeURIComponent(JSON.stringify(props.data))}`;
     setChartURL(url);
   }, [selectedTimeframe]);
 

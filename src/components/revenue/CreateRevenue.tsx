@@ -8,10 +8,18 @@ import {
 import { Colors } from "@/src/constants/Colors";
 import Row from "@/src/components/revenue/Row";
 import { AntDesign } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CreateRevenueProps {
   toggleCreateRevenue: () => void;
+  setDashBoardData: (data: DashboardData) => void;
+}
+
+interface DashboardData {
+  totalSales: number;
+  profit: number;
+  change: number;
+  changeDate: string;
 }
 
 interface RevenueData {
@@ -37,7 +45,10 @@ interface RowData {
   value: number | null;
 }
 
-const CreateRevenue = ({ toggleCreateRevenue }: CreateRevenueProps) => {
+const CreateRevenue = ({
+  toggleCreateRevenue,
+  setDashBoardData,
+}: CreateRevenueProps) => {
   const mockData = {
     매출합계: 302532,
     카드: 302032,
@@ -105,6 +116,19 @@ const CreateRevenue = ({ toggleCreateRevenue }: CreateRevenueProps) => {
     });
     setRevenueData(updatedData);
   };
+
+  useEffect(() => {
+    const dashboardData: DashboardData = {
+      totalSales: revenueData[0].value || 0,
+      profit:
+        (revenueData[0].value || 0) -
+        (revenueData[1].value || 0) -
+        (revenueData[2].value || 0),
+      change: -23200,
+      changeDate: new Date().toISOString().split("T")[0].replace(/-/g, "."),
+    };
+    setDashBoardData(dashboardData);
+  }, [revenueData]);
 
   return (
     <View style={styles.container}>

@@ -21,6 +21,8 @@ const RevenueScreen: React.FC = () => {
     changeDate: "2025.05.12",
   };
 
+  const [dashboardData, setDashboardData] = useState<DashboardData>(data);
+
   const [isCreateRevenueVisible, setIsCreateRevenueVisible] = useState(false);
 
   const toggleCreateRevenue = () => {
@@ -44,9 +46,12 @@ const RevenueScreen: React.FC = () => {
     <>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-          <RevenueWidget data={data} />
+          <RevenueWidget data={dashboardData} />
           {isCreateRevenueVisible ? (
-            <CreateRevenue toggleCreateRevenue={toggleCreateRevenue} />
+            <CreateRevenue
+              setDashBoardData={setDashboardData}
+              toggleCreateRevenue={toggleCreateRevenue}
+            />
           ) : (
             <>
               <View style={styles.actionCards}>
