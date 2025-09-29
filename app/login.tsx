@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import LogoTextColor from '@/assets/images/inforsion-logo-text-color.png';
@@ -11,6 +11,19 @@ import { useState } from 'react';
 const LoginScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
   const styles = useStyles();
+
+  const renderPrompt = (title: string) => {
+    return (
+      <View>
+        <Text style={styles.signupPromptText}>
+          {title}{' '}
+          <TouchableOpacity onPress={() => setIsLogin(!isLogin)} style={styles.signupText}>
+            회원가입하기
+          </TouchableOpacity>
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,11 +42,7 @@ const LoginScreen = () => {
         onPress={() => {}}
         style={styles.loginOrSignupButton}
       />
-      <View>
-        <Text style={styles.signupPromptText}>
-          회원이 아니신가요? <Text style={styles.signupText}>회원가입하기</Text>
-        </Text>
-      </View>
+      {renderPrompt(isLogin ? '아직 회원이 아니신가요?' : '이미 회원이신가요?')}
     </SafeAreaView>
   );
 };
