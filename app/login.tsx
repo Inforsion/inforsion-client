@@ -51,6 +51,7 @@ const useStyles = () => {
       backgroundColor: colors.background.primary,
       alignContent: 'center',
       justifyContent: 'center',
+      maxWidth: 1000,
     },
     logoContainer: {
       flexDirection: 'column',
