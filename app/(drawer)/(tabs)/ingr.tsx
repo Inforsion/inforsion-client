@@ -205,7 +205,58 @@ const Ingr = () => {
                             </View>
                         </View>
 
-            </ScrollView>
+                        <View style={modalStyles.col}>
+                            <Text style={modalStyles.label}>재고</Text>
+                            <View
+                                style={[
+                                    modalStyles.inputBox,
+                                    focus.quantity && modalStyles.inputBoxActive,
+                                ]}
+                            >
+                                <TextInput
+                                    placeholder="재고를 입력하세요"
+                                    placeholderTextColor="#B5B7BD"
+                                    keyboardType="number-pad"
+                                    value={quantity}
+                                    onChangeText={setQuantity}
+                                    onFocus={() => setFocus((p) => ({ ...p, quantity: true }))}
+                                    onBlur={() => setFocus((p) => ({ ...p, quantity: false }))}
+                                    style={modalStyles.input}
+                                />
+                            </View>
+                        </View>
+                    </View>
+
+                    <View style={modalStyles.row2}>
+                        <View style={{ flex: 1 }}>
+                            <Text style={modalStyles.label}>가격</Text>
+                            <View
+                                style={[
+                                    modalStyles.inputBox,
+                                    focus.price && modalStyles.inputBoxActive,
+                                ]}
+                            >
+                                <TextInput
+                                    placeholder="가격을 입력하세요"
+                                    placeholderTextColor="#B5B7BD"
+                                    keyboardType="number-pad"
+                                    value={price}
+                                    onChangeText={setPrice}
+                                    onFocus={() => setFocus((p) => ({ ...p, price: true }))}
+                                    onBlur={() => setFocus((p) => ({ ...p, price: false }))}
+                                    style={modalStyles.input}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={modalStyles.saveRight}>
+                            <TouchableOpacity onPress={handleSubmit} style={modalStyles.saveBtn}>
+                                <Text style={modalStyles.saveBtnText}>저장</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </CommonModal>
         </View>
     );
 };
