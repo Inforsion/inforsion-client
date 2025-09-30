@@ -1,3 +1,4 @@
+
 import { StyleSheet } from 'react-native';
 
 export const ingrStyles = StyleSheet.create({
@@ -7,96 +8,149 @@ export const ingrStyles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 40,
     },
+
     card: {
         borderWidth: 1,
         borderColor: '#D1D1D1',
         borderRadius: 10,
-        padding: 16,
         backgroundColor: '#ffffff',
         marginBottom: 20,
     },
+
     row: {
         flexDirection: 'row',
         marginBottom: 14,
         alignItems: 'center',
     },
+
     col: {
         flex: 1,
         flexDirection: 'column',
     },
+
     label: {
         flex: 1,
         fontSize: 12,
         fontWeight: 'bold',
         color: '#2F2F2F',
     },
+
     inputWrapper: {
         flex: 2,
     },
+
     input: {
         fontSize: 12,
         paddingVertical: 4,
         color: '#343434',
     },
+
     unitText: {
         fontSize: 12,
         color: '#A5A5A5',
         marginTop: 2,
     },
+
     submitButton: {
-        backgroundColor: '#2897FF',
-        paddingVertical: 14,
+        width: 160,
+        height: 36,
+        borderWidth: 1,
+        borderColor: '#888888',
         borderRadius: 8,
         alignItems: 'center',
+        justifyContent: 'center',
         marginBottom: 30,
+        alignSelf: 'center',
     },
+
     submitText: {
-        color: '#ffffff',
+        color: '#383838',
         fontWeight: 'bold',
         fontSize: 16,
     },
+
     headerRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 10,
     },
+
     listTitle: {
         color: '#272525',
         fontWeight: 'bold',
         fontSize: 14,
+        marginBottom: 12,
     },
+
     editText: {
         color: '#FF7173',
         fontWeight: 'bold',
         fontSize: 12,
         textDecorationLine: 'underline',
     },
+
+
     tableHeader: {
         flexDirection: 'row',
         borderBottomWidth: 1,
         paddingTop: 28,
         paddingBottom: 16,
+        paddingHorizontal: 20,
         marginBottom: 8,
+        borderBottomColor: '#DADDE1',
+        alignItems: 'center',
     },
+
     th: {
         flex: 1,
         fontWeight: 'bold',
         fontSize: 12,
         textAlign: 'center',
+        color: '#202124',
     },
+
+    thName: { flex: 2, textAlign: 'left', paddingLeft: 6 },
+    thSmall: { flex: 1 },
+
+    dragHeaderSpacer: { width: 24 },
+
     rowList: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 12,
         borderBottomWidth: 0.5,
-        borderColor: '#ccc',
+        borderColor: '#ECEFF1',
+        minHeight: 48,
+        paddingHorizontal: 20,
     },
+
     td: {
         flex: 1,
         textAlign: 'center',
         color: '#272525',
         fontSize: 12,
     },
+
+    cellName: { flex: 1, textAlign: 'left', paddingLeft: 6 },
+    cellSmall: { flex: 1, textAlign: 'center' },
+
+
+    checkboxSlot: {
+        width: 22,
+        height: 22,
+        marginRight: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    checkboxSpacer: { width: 0, marginRight: 0 },
+
+    dragHandle: {
+        width: 24,
+        alignItems: 'flex-end',
+        paddingLeft: 8,
+    },
+
     image: {
         width: 50,
         height: 50,
@@ -104,14 +158,17 @@ export const ingrStyles = StyleSheet.create({
         backgroundColor: '#ddd',
         marginHorizontal: 5,
     },
+
     stockCell: {
         flex: 1,
         alignItems: 'center',
     },
+
     subText: {
         fontSize: 10,
         color: '#888',
     },
+
     checkboxBox: {
         width: 16,
         height: 16,
@@ -122,10 +179,12 @@ export const ingrStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
     checkboxBoxChecked: {
         backgroundColor: '#FF7173',
         borderColor: '#FF7173',
     },
+
     checkboxMark: {
         color: '#fff',
         fontSize: 11,
@@ -146,11 +205,10 @@ export const ingrStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
     deleteBtnText: {
         color: '#fff',
         fontSize: 16,
         fontWeight: '600',
     },
-
-
 });
