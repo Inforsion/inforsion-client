@@ -1,14 +1,11 @@
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Drawer } from "expo-router/drawer";
-import { useColorScheme } from "@/src/hooks/useColorScheme";
-import { Colors } from "@/src/constants/Colors";
 import Sidebar from "@/src/components/common/Sidebar";
 import InforsionHeader from "@/src/components/ui/InforsionHeader";
 import IOSStatusBarCover from "@/src/components/ui/IOSStatusBarCover";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { Colors } from "@/src/constants/Colors";
+import { useColorScheme } from "@/src/hooks/useColorScheme";
+import { Drawer } from "expo-router/drawer";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function DrawerLayout() {
   const colorScheme = useColorScheme();
