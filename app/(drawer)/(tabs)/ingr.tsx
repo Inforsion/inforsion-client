@@ -7,6 +7,8 @@ import {
     ScrollView,
     FlatList,
     Alert,
+    TextInput,
+    StyleSheet,
 } from 'react-native';
 import { ingrStyles } from '@/src/styles/IngrStyle';
 import StepIndicator from '@/src/components/Ingr/StepIndicator';
@@ -22,6 +24,7 @@ type StockItem = {
     price: number;
     stock: string;
     quantity: number;
+    price: number;
     imageUri?: string | null;
 };
 
@@ -53,14 +56,12 @@ const Ingr = () => {
             Alert.alert('입력 오류', '모든 항목을 입력해주세요.');
             return;
         }
-
-        const newItem = {
+        const newItem: StockItem = {
             id: String(Date.now()),
-            name,
-            price: Number(price),
-            stock,
+            name: name.trim(),
+            stock: capacity.trim(),
             quantity: Number(quantity),
-            imageUri: photo || null,
+            price: Number(price),
         };
 
         setStockList([...stockList, newItem]);
@@ -72,97 +73,91 @@ const Ingr = () => {
         setPhoto(null);
     };
     return (
-        <View style={ingrStyles.container}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
-                <StepIndicator currentStep={1}/>
+        <View style={[ingrStyles.container, { paddingBottom: 40 }]}>
+            {/* 상단 */}
+            <Text style={screenStyles.pageTitle}>재료 등록</Text>
+            <View style={ingrStyles.headerRow}>
+                <Text style={screenStyles.pageSub}>
+                    {effectiveSelectMode
+                        ? '레시피에 들어갈 재료를 선택하세요.'
+                        : '재료를 등록하고 편리하게 메뉴를 관리해보세요.'}
+                </Text>
 
-                <View style={ingrStyles.card}>
-                    <ImgUpload value={photo} onChange={setPhoto} />
+                {effectiveSelectMode ? (
+                    <TouchableOpacity onPress={finishSelection} disabled={selected.length === 0}>
+                        <Text
+                            style={[
+                                ingrStyles.editText,
+                                { color: '#4E71D3' },
+                                selected.length === 0 && { opacity: 0.35 },
+                            ]}
+                        >
+                            확인
+                        </Text>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity
+                        onPress={() => {
+                            setEdit((m) => !m);
+                            setSelected([]);
+                        }}
+                    >
+                        <Text style={ingrStyles.editText}>{edit ? '완료' : '편집'}</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
 
-                    <InputField
-                        label="재료명"
-                        placeholder="상품이름을 입력해주세요."
-                        value={name}
-                        onChangeText={setName}/>
-                    <InputField
-                        label="재료 가격"
-                        placeholder="가격을 입력해주세요."
-                        value={price}
-                        onChangeText={setPrice}/>
-                    <InputField
-                        label="1개당 재료용량"
-                        placeholder="용량을 입력해주세요."
-                        unit="(단위: g, ml)"
-                        value={stock}
-                        onChangeText={setStock}
-                    />
-                    <InputField
-                        label="재고 수"
-                        placeholder="재고를 입력해주세요."
-                        value={quantity}
-                        onChangeText={setQuantity}
-                    />
+            <View style={[ingrStyles.card, screenStyles.cardElevated]}>
+                <View style={[ingrStyles.tableHeader, screenStyles.headerThin]}>
+                    <Text style={[ingrStyles.th, screenStyles.thName]}>재료 이름</Text>
+                    <Text style={[ingrStyles.th, screenStyles.thSmall]}>용량</Text>
+                    <Text style={[ingrStyles.th, screenStyles.thSmall]}>재고</Text>
+                    <Text style={[ingrStyles.th, screenStyles.thSmall]}>가격</Text>
                 </View>
 
-                <TouchableOpacity
-                    style={ingrStyles.submitButton}
-                    onPress={handleSubmit}>
-                    <Text style={ingrStyles.submitText}>저장</Text>
-                </TouchableOpacity>
-
-                <View style={[ingrStyles.card, { position: 'relative' }]}>
-                    <View style={ingrStyles.headerRow}>
-                        <Text style={ingrStyles.listTitle}>재고 목록</Text>
-
-                        <TouchableOpacity onPress={() => {
-                            setEdit(m => !m);
-                            setSelected([]);
-                        }}>
-                            <Text style={ingrStyles.editText}>{edit ? '완료' : '수정하기'}</Text>
-                        </TouchableOpacity>
+                {stockList.length === 0 ? (
+                    <View style={screenStyles.emptyWrap}>
+                        <Text style={screenStyles.emptyText}>저장된 재료가 없습니다.</Text>
                     </View>
-
-                    <View style={ingrStyles.tableHeader}>
-                        <Text style={ingrStyles.th}>NO.</Text>
-                        <Text style={ingrStyles.th}>사진</Text>
-                        <Text style={ingrStyles.th}>상품명</Text>
-                        <Text style={ingrStyles.th}>가격</Text>
-                        <Text style={ingrStyles.th}>남은 재고</Text>
-                    </View>
-
-                    {stockList.length === 0 ? (
-                        <View style={{ paddingVertical: 30, alignItems: 'center' }}>
-                            <Text style={{ color: '#888' }}>저장된 재료가 없습니다.</Text>
-                        </View>
-                    ) : (
-                        <View style={{ maxHeight: 400 }}>
-                            <FlatList
-                                data={stockList}
-                                keyExtractor={(item) => item.id}
-                                renderItem={({ item, index }) => (
-                                    <StockListItem
-                                        item={item}
-                                        num={(index + 1).toString().padStart(2, '0')}
-                                        edit={edit}
-                                        selected={selected.includes(item.id)}
-                                        onToggle={() => toggleSelect(item.id)}
-                                    />
-                                )}
-                                scrollEnabled={stockList.length > 5}
-                                showsVerticalScrollIndicator
+                ) : (
+                    <FlatList
+                        data={stockList}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => (
+                            <StockListItem
+                                item={item}
+                                edit={showCheckboxes}
+                                selected={selected.includes(item.id)}
+                                onToggle={() => toggleSelect(item.id)}
                             />
-                        </View>
-                    )}
+                        )}
+                        showsVerticalScrollIndicator
+                        style={screenStyles.list}
+                        contentContainerStyle={{ paddingBottom: 8 }}
+                    />
+                )}
 
-                    {edit && selected.length > 0 && (
-                        <TouchableOpacity
-                            onPress={handleDeleteSelected}
-                            style={ingrStyles.deleteBtn}
-                            activeOpacity={0.9}
-                        >
-                            <Text style={ingrStyles.deleteBtnText}>삭제</Text>
-                        </TouchableOpacity>
-                    )}
+                {!effectiveSelectMode && edit && selected.length > 0 && (
+                    <TouchableOpacity
+                        onPress={handleDeleteSelected}
+                        style={ingrStyles.deleteBtn}
+                        activeOpacity={0.9}
+                    >
+                        <Text style={ingrStyles.deleteBtnText}>삭제</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
+
+            <TouchableOpacity
+                style={screenStyles.outlineBtn}
+                onPress={() => setIsModalVisible(true)}
+            >
+                <Text style={screenStyles.outlineBtnText}>재료추가</Text>
+            </TouchableOpacity>
+
+            <CommonModal visible={isModalVisible} onClose={() => setIsModalVisible(false)}>
+                <View style={modalStyles.header}>
+                    <Text style={modalStyles.title}>재료추가</Text>
                 </View>
 
 
@@ -172,3 +167,36 @@ const Ingr = () => {
 };
 
 export default Ingr;
+
+
+const screenStyles = StyleSheet.create({
+    pageTitle: { fontSize: 20, fontWeight: '700', color: '#222', marginBottom: 6 },
+    pageSub: { fontSize: 13, color: '#7D7D7D', marginBottom: 14 },
+    cardElevated: {
+        borderWidth: 0,
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOpacity: 0.06,
+        shadowOffset: { width: 0, height: 6 },
+        shadowRadius: 18,
+        elevation: 4,
+    },
+    headerThin: { borderBottomColor: '#ECEDEF', backgroundColor: '#FAF9F9' },
+    thName: { flex: 1, textAlign: 'left', paddingLeft: 6 },
+    thSmall: { flex: 1 },
+    emptyWrap: { paddingVertical: 24, alignItems: 'center' },
+    emptyText: { color: '#9AA0A6' },
+    list: { maxHeight: 360 },
+    outlineBtn: {
+        alignSelf: 'center',
+        marginTop: 8,
+        borderWidth: 1,
+        borderColor: '#D7D9DE',
+        borderRadius: 10,
+        height: 44,
+        paddingHorizontal: 18,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    outlineBtnText: { color: '#5A5F6A', fontSize: 14, fontWeight: '600' },
+});
