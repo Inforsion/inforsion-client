@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -16,11 +16,15 @@ import { useLocalSearchParams, useRouter, useNavigation } from 'expo-router';
 type StockItem = {
     id: string;
     name: string;
-    price: number;
     stock: string;
     quantity: number;
     price: number;
     imageUri?: string | null;
+};
+
+type IngrParams = {
+    selectMode?: string;
+    onSelectKey?: string;
 };
 
 const Ingr = () => {
@@ -41,17 +45,40 @@ const Ingr = () => {
         price: false,
     });
 
+    const router = useRouter();
+    const navigation = useNavigation();
+    const params = useLocalSearchParams() as IngrParams;
+
+    const isSelectMode = params.selectMode === 'true';
+    const onSelectKey = params.onSelectKey;
+    const effectiveSelectMode = isSelectMode && !!onSelectKey;
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            if (!router.canGoBack()) {
+                setSelected([]);
+            }
+        });
+        return unsubscribe;
+    }, [navigation]);
 
     const toggleSelect = (id: string) => {
-        setSelected(prev =>
-            prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]
+        setSelected((prev) =>
+            prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id],
         );
     };
 
     const handleDeleteSelected = () => {
-        if (selected.length === 0) return;
-        setStockList(prev => prev.filter(item => !selected.includes(item.id)));
+        if (!selected.length) return;
+        setStockList((prev) => prev.filter((item) => !selected.includes(item.id)));
         setSelected([]);
+    };
+
+    const resetForm = () => {
+        setName('');
+        setCapacity('');
+        setQuantity('');
+        setPrice('');
     };
 
     const handleSubmit = () => {
@@ -66,15 +93,25 @@ const Ingr = () => {
             quantity: Number(quantity),
             price: Number(price),
         };
-
-        setStockList([...stockList, newItem]);
-
-        setName('');
-        setPrice('');
-        setStock('');
-        setQuantity('');
-        setPhoto(null);
+        setStockList((prev) => [...prev, newItem]);
+        resetForm();
+        setIsModalVisible(false);
     };
+
+    const finishSelection = () => {
+        if (!onSelectKey) return router.back();
+        const cb = (globalThis as any)[onSelectKey];
+        if (typeof cb === 'function') {
+            const selectedItems = stockList.filter((it) => selected.includes(it.id));
+            cb(selectedItems);
+            delete (globalThis as any)[onSelectKey];
+        }
+        router.back();
+    };
+
+    const showEditButton = !effectiveSelectMode;
+    const showCheckboxes = effectiveSelectMode ? true : edit;
+
     return (
         <View style={[ingrStyles.container, { paddingBottom: 40 }]}>
             {/* 상단 */}
