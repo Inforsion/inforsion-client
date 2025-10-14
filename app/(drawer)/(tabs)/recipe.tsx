@@ -66,13 +66,13 @@ const Recipe = () => {
         (globalThis as any)[cbKey] = (selectedItems: any[]) => {
             const chips = selectedItems.map((it: any) => `${it.name} ${it.stock}`);
             setIngredients(prev => [...prev, ...chips]);
-            setIsModalVisible(true); // 선택 완료 후 모달 즉시 재오픈
+            setIsModalVisible(true);
         };
 
         setIsModalVisible(false);
         setTimeout(() => {
             router.push({
-                pathname: '/(drawer)/(tabs)/ingr',
+                pathname: '/selectIngr',
                 params: { selectMode: 'true', onSelectKey: cbKey },
             });
         }, 150);
@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
     searchPlaceholder: { color: '#B1B5BC', fontSize: 13 },
     cardElevated: { borderWidth: 0, backgroundColor: '#fff', shadowColor: '#000', shadowOpacity: 0.06, shadowOffset: { width: 0, height: 6 }, shadowRadius: 18, elevation: 4 },
     headerThin: { borderBottomColor: '#ECEDEF', backgroundColor: '#FAF9F9', alignItems: "center" },
-    thName: { flex: 1, textAlign: 'left', paddingLeft: 6 },
-    thSmall: { flex: 2 },
+    thName: { flex: 1, textAlign: 'left', paddingLeft: 12},
+    thSmall: { flex: 2, paddingLeft: 16},
     emptyWrap: { paddingVertical: 24, alignItems: 'center' },
     emptyText: { color: '#9AA0A6' },
     outlineBtn: { alignSelf: 'center', marginTop: 12, width: 180, height: 36, borderWidth: 0.4, borderColor: '#888888', borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
