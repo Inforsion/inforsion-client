@@ -11,7 +11,6 @@ export const recipeStyles = StyleSheet.create({
             borderWidth: 1,
             borderColor: '#D1D1D1',
             borderRadius: 10,
-            padding: 16,
             backgroundColor: '#ffffff',
             marginBottom: 20,
         },
@@ -80,9 +79,9 @@ export const recipeStyles = StyleSheet.create({
         },
         th: {
             flex: 1,
-            fontWeight: 'bold',
+            fontWeight: 'medium',
             fontSize: 12,
-            textAlign: 'center',
+            color: '#848484',
         },
         rowList: {
             flexDirection: 'row',

@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { ingrStyles } from '@/src/styles/IngrStyle';
+import Icon from '@/src/components/common/Icon';
+import DragSVG from '@/assets/images/Ingr/ItemDrag.svg';
 
 type StockItem = {
     id: string;
@@ -13,7 +15,6 @@ type StockItem = {
 
 interface Props {
     item: StockItem;
-    num: string;
     edit?: boolean;
     selected?: boolean;
     onToggle?: () => void;
@@ -21,39 +22,46 @@ interface Props {
 
 const StockListItem = ({
                            item,
-                           num,
                            edit = false,
                            selected = false,
                            onToggle,
-                       }: Props) => (
-    <View style={ingrStyles.rowList}>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-            {edit && (
+                       }: Props) => {
+    return (
+        <View style={ingrStyles.rowList}>
+            {edit ? (
                 <TouchableOpacity
                     onPress={onToggle}
                     activeOpacity={0.8}
                     style={[
+                        ingrStyles.checkboxSlot,
                         ingrStyles.checkboxBox,
                         selected && ingrStyles.checkboxBoxChecked,
                     ]}
                 >
                     {selected && <Text style={ingrStyles.checkboxMark}>✓</Text>}
                 </TouchableOpacity>
+            ) : (
+                <View style={ingrStyles.checkboxSpacer} />
             )}
-            <Text style={ingrStyles.td}>{num}</Text>
+
+            <Text style={[ingrStyles.td, ingrStyles.cellName]} numberOfLines={1}>
+                {item.name}
+            </Text>
+            <Text style={[ingrStyles.td, ingrStyles.cellSmall]} numberOfLines={1}>
+                {item.price}
+            </Text>
+            <Text style={[ingrStyles.td, ingrStyles.cellSmall]} numberOfLines={1}>
+                {item.stock}개
+            </Text>
+            <Text style={[ingrStyles.td, ingrStyles.cellSmall]} numberOfLines={1}>
+                {item.quantity}원
+            </Text>
+
+\            <View style={ingrStyles.dragHandle}>
+                <Icon icon={DragSVG} size={16} color="#A0A0A0" />
+            </View>
         </View>
-        {item.imageUri ? (
-            <Image source={{ uri: item.imageUri }} style={ingrStyles.image} />
-        ) : (
-            <View style={ingrStyles.image} />
-        )}
-        <Text style={ingrStyles.td}>{item.name}</Text>
-        <Text style={ingrStyles.td}>{item.price}</Text>
-        <View style={ingrStyles.stockCell}>
-            <Text style={ingrStyles.td}>{item.stock}</Text>
-            <Text style={ingrStyles.subText}>({item.quantity}개)</Text>
-        </View>
-    </View>
-);
+    );
+};
 
 export default StockListItem;

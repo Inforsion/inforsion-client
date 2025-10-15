@@ -12,10 +12,11 @@ const CommonModal = ({ visible, onClose, children }: Props) => {
         <Modal animationType="slide" transparent visible={visible}>
             <View style={styles.overlay}>
                 <View style={styles.modalBox}>
-                    {children}
                     <View style={styles.closeBtnWrapper}>
                         <Text style={styles.closeBtn} onPress={onClose}>닫기</Text>
                     </View>
+                    {children}
+
                 </View>
             </View>
 
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     closeBtnWrapper: {
         flexDirection: "row",
         justifyContent: "flex-end",
-        top:10
+        top:10,
     },
     closeBtn: {
         color: "#FF5151",
