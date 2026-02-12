@@ -48,16 +48,16 @@ const StockListItem = ({
                 {item.name}
             </Text>
             <Text style={[ingrStyles.td, ingrStyles.cellSmall]} numberOfLines={1}>
-                {item.price}
+                {item.stock}
             </Text>
             <Text style={[ingrStyles.td, ingrStyles.cellSmall]} numberOfLines={1}>
-                {item.stock}개
+                {item.quantity}개
             </Text>
             <Text style={[ingrStyles.td, ingrStyles.cellSmall]} numberOfLines={1}>
-                {item.quantity}원
+                {item.price}원
             </Text>
 
-\            <View style={ingrStyles.dragHandle}>
+            <View style={ingrStyles.dragHandle}>
                 <Icon icon={DragSVG} size={16} color="#A0A0A0" />
             </View>
         </View>
