@@ -1,4 +1,3 @@
-
 import { StyleSheet } from 'react-native';
 
 export const ingrStyles = StyleSheet.create({
@@ -109,7 +108,7 @@ export const ingrStyles = StyleSheet.create({
         color: '#202124',
     },
 
-    thName: { flex: 2, textAlign: 'left', paddingLeft: 6 },
+    thName: { flex: 1, textAlign: 'left', paddingLeft: 6 },
     thSmall: { flex: 1 },
 
     dragHeaderSpacer: { width: 24 },
