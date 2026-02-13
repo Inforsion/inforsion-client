@@ -18,11 +18,18 @@ import CreateIngrModal from '@/src/components/Ingr/CreateIngrModal';
 
 import { useIngredients } from '@/hooks/ingredient/useIngredients';
 import { useCreateIngr, IngredientPayload } from '@/hooks/ingredient/useCreateIngr';
-import { parseNumber, parseUnit } from '@/src/utils/ingrUtils';
+import { parseNumber, parseUnit, getBaseUrl } from '@/src/utils/ingrUtils';
+
+
+const formatDate = (date: Date) => {
+    return date.toISOString().split('T')[0];
+};
 
 const Ingr = () => {
     const STORE_ID = Number(process.env.EXPO_PUBLIC_TEMP_STORE_ID || 0);
     const ACCESS_TOKEN = process.env.EXPO_PUBLIC_TEMP_ACCESS_TOKEN || "";
+
+    const baseUrl = getBaseUrl();
 
     const {
         stockList,
@@ -86,22 +93,64 @@ const Ingr = () => {
 
 
     const handleCreateSubmit = async (data: { name: string; capacity: string; quantity: string; price: string }) => {
+        const unit = parseUnit(data.capacity);
+        const unitCapacity = parseNumber(data.capacity);
+        const stockPrice = Number(data.price);
+        const stockQuantity = Number(data.quantity);
+
         const payload: IngredientPayload = {
             storeId: STORE_ID,
             name: data.name.trim(),
-            unit: parseUnit(data.capacity),
-            stockPrice: Number(data.price),
-            unitCapacity: parseNumber(data.capacity),
-            stockQuantity: Number(data.quantity),
+            unit: unit,
+            stockPrice: stockPrice,
+            unitCapacity: unitCapacity,
+            stockQuantity: stockQuantity,
         };
 
         try {
-            await createIngrApi(payload, ACCESS_TOKEN);
+            const createdIngr = await createIngrApi(payload, ACCESS_TOKEN);
+
+            if (!createdIngr || !createdIngr.id) {
+                throw new Error("재료 생성 응답에 고유 ID가 없습니다.");
+            }
+
+            const today = new Date();
+            const nextYear = new Date();
+            nextYear.setFullYear(today.getFullYear() + 1);
+
+            const inventoryPayload = {
+                storeId: STORE_ID,
+                ingredientId: createdIngr.id,
+                ingredientName: payload.name,
+                unit: payload.unit,
+                currentStock: payload.stockQuantity,
+                minStock: 0,
+                maxStock: 9999,
+                unitCost: payload.stockPrice,
+                expiryDate: formatDate(nextYear),
+                lastRestockedDate: formatDate(today)
+            };
+
+            const inventoryResponse = await fetch(`${baseUrl}/api/v1/inventory`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${ACCESS_TOKEN}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(inventoryPayload)
+            });
+
+            if (!inventoryResponse.ok) {
+                const errText = await inventoryResponse.text();
+                console.error("인벤토리 등록 실패:", errText);
+                throw new Error('재료는 등록되었으나 재고 연동에 실패했습니다.');
+            }
+
 
             await fetchIngredients();
             setIsModalVisible(false);
 
-            Alert.alert('성공', '재료가 등록되었습니다.');
+            Alert.alert('성공', '재료 및 초기 재고가 정상 등록되었습니다.');
         } catch (e: any) {
             Alert.alert('등록 실패', e?.message ?? '오류가 발생했습니다.');
         }
